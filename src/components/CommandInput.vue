@@ -1,6 +1,6 @@
 <template>
     <div>
-        Hello
+        <input type="text" name="CommandInputName" class="border w-full rounded p-1 px-2">
     </div>
 </template>
 
@@ -8,7 +8,7 @@
 import { Component, Prop, Vue } from 'vue-property-decorator';
 
 @Component
-export default class CommandLine extends Vue {
+export default class CommandInput extends Vue {
 }
 </script>
 
