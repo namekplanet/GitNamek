@@ -1,6 +1,6 @@
 import Vue from 'vue';
 
-import CommandInput from '@/components/CommandInput.vue';
+import TerminalInput from '@/components/Terminal/TerminalInput.vue';
 
 
-Vue.component('CommandInput', CommandInput);
+Vue.component('TerminalInput', TerminalInput);

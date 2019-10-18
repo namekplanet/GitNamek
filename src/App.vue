@@ -12,7 +12,7 @@
                 </div>
             </div>
             <div class="h-14 p-3 border-b absolute bottom-0 inset-x-0 shadow">
-                <CommandInput/>
+                <TerminalInput/>
             </div>
         </div>
     </div>

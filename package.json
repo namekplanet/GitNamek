@@ -15,6 +15,7 @@
   "main": "background.js",
   "dependencies": {
     "core-js": "^3.1.2",
+    "fs": "^0.0.1-security",
     "nodegit": "^0.26.2",
     "vue": "^2.6.10",
     "vue-class-component": "^7.0.2",
