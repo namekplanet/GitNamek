@@ -12,12 +12,14 @@ export default new Vuex.Store({
         openedProject: null,
     },
     mutations: {
-        //
+        addProject(state: any, args: any): void {
+            console.log('addProject');
+            state.openedProject = new Project(args['name'], args['path']);
+            state.projects.push(state.openedProject);
+        }
     },
     actions: {
-        addProject(state: any, args: any): void {
-            state.openedProject = new Project('Bla Bla Bla', '/');
-        }
+        //
     },
     modules: {
         //
