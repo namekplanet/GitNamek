@@ -14,7 +14,11 @@ const fs = require('fs');
 @Component
 export default class TerminalInput extends Vue {
 
-    private inputCommand: string = 'open C:\\REDCATS\\DEVS\\JupiterOne';
+    private inputCommand: string = 'open /usr/local/var/www/RedJupiter/JupiterOne';
+
+    mounted() {
+        setTimeout(this.onKeyEnter(), 500);
+    }
 
     public onKeyEnter(evt: any): void {
         const args: string[] = this.inputCommand.split(' ');
@@ -48,7 +52,7 @@ export default class TerminalInput extends Vue {
     public isRepository(path: string): Promise<boolean> {
         const self = this;
         return new Promise<boolean>((resolve: any, reject: any) => {
-            fs.stat(path + '\\.git', function(err: any, stats: any) {
+            fs.stat(path + '/.git', function(err: any, stats: any) {
                 if (stats && stats.isDirectory()) {
                     console.log('IS GIT REPO');
                     resolve(true);
@@ -64,7 +68,7 @@ export default class TerminalInput extends Vue {
         console.log('openGitProject');
         this.$store.commit('addProject', {
             name: 'Bla Bla',
-            path: path 
+            path: path
         });
     }
 }

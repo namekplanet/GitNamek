@@ -1,8 +1,19 @@
 <template>
-    <div class="bg-red-900 h-full">
-    	sidebar
+    <div class="h-full"
+         v-if="selectedProject.getRepo()">
         <ul>
-        	<li></li>
+        	<li>
+                <div class="shadow">LOCAL</div>
+                <ul class="ml-4">
+                    <li v-for="(r,i) in selectedProject.getRepo().refsLocal">{{ r.name }}</li>
+                </ul>
+            </li>
+            <li>
+                <div class="shadow">REMOTE</div>
+                <ul class="ml-4">
+                    <li v-for="(r,i) in selectedProject.getRepo().refsRemote">{{ r.name }}</li>
+                </ul>
+            </li>
         </ul>
     </div>
 </template>
@@ -16,7 +27,6 @@ var Git = require('nodegit');
 export default class RepositorySideBar extends Vue {
 
     public listRepositories: string[] = [];
-
 
     get selectedProject(): Project {
         return this.$store.state.openedProject;
@@ -35,7 +45,7 @@ export default class RepositorySideBar extends Vue {
         });
 
     }
-	
+
 }
 </script>
 
