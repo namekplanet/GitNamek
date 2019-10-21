@@ -3,7 +3,7 @@
         <div>
             <button class="bg-green-500 text-white rounded px-1"
                 @click="push()"
-            >Push</button>
+            >({{ selectedProject.getRepo().commitsAhead }})Push</button>
         </div>
     </div>
 </template>

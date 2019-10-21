@@ -9,10 +9,13 @@ export default class Repository {
     public remotes: string[] = [];
     public branchLocal: any[] = [];
     public branchRemote: any[] = [];
-    public branchRemoteCurrent: any;
+    public branchRemoteCurrent?: string;
+    public branchRemoteTracking?: string;
 
     public stagedFiles: any[] = [];
     public unstagedFiles: any[] = [];
+
+    public commitsAhead: number = 0;
 
     constructor() {
         // refresh every 5 seconds
@@ -54,9 +57,6 @@ export default class Repository {
             this.branchRemote.splice(0, this.branchRemote.length);
             data.all.forEach((name: string) => {
                 this.branchRemote.push(data.branches[name]);
-                if (data.branches[name].current) {
-                    this.branchRemoteCurrent = data.branches[name];
-                }
             });
         });
     }
@@ -73,6 +73,9 @@ export default class Repository {
             this.stagedFiles.splice(0, this.stagedFiles.length);
             this.unstagedFiles.splice(0, this.unstagedFiles.length);
 
+            this.commitsAhead = data.ahead;
+            this.branchRemoteCurrent = data.current;
+            this.branchRemoteTracking = data.tracking;
             data.files.forEach((file: any) => {
                 if (file.index !== ' ' && file.index !== '?') {
                     this.stagedFiles.push({
@@ -108,8 +111,11 @@ export default class Repository {
     }
 
     public push(): void {
-        Git.push(this.remotes[0], this.branchRemoteCurrent.name).then((data: any) => {
-            //
-        });
+        if (this.branchRemoteTracking) {
+            const rpb = this.branchRemoteTracking.split('/');
+            Git.push(rpb[0], rpb[1]).then((data: any) => {
+                this.loadData();
+            });
+        }
     }
 }
