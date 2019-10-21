@@ -1,4 +1,3 @@
-// var Git = require('simple-git');
 import * as simplegit from 'simple-git/promise';
 const Git: any = simplegit();
 
@@ -7,8 +6,10 @@ export default class Repository {
     private isOpened: boolean = false;
     private repo: any;
 
-    public refsLocal: any[] = [];
-    public refsRemote: any[] = [];
+    public remotes: string[] = [];
+    public branchLocal: any[] = [];
+    public branchRemote: any[] = [];
+    public branchRemoteCurrent: any;
 
     public stagedFiles: any[] = [];
     public unstagedFiles: any[] = [];
@@ -42,32 +43,40 @@ export default class Repository {
     public loadData(): void {
         this.loadBranches();
         this.loadStatus();
+        this.loadRemotes();
     }
 
     public loadBranches(): void {
         console.log('loadBranches()');
         // get local branches
         Git.branchLocal().then((data: any) => {
-            this.refsLocal.splice(0, this.refsLocal.length);
+            this.branchLocal.splice(0, this.branchLocal.length);
             data.all.forEach((name: string) => {
-                this.refsLocal.push(data.branches[name]);
+                this.branchLocal.push(data.branches[name]);
             });
         });
 
         // get remote branches
         Git.branch('--remotes').then((data: any) => {
             console.log('BRANCHES: ', data);
-            this.refsRemote.splice(0, this.refsRemote.length);
+            this.branchRemote.splice(0, this.branchRemote.length);
             data.all.forEach((name: string) => {
-                this.refsRemote.push(data.branches[name]);
+                this.branchRemote.push(data.branches[name]);
+                if (data.branches[name].current) {
+                    this.branchRemoteCurrent = data.branches[name];
+                }
             });
         });
     }
 
+    public loadRemotes(): void {
+        Git.getRemotes().then((data: any) => {
+            data.forEach((r: any) => this.remotes.push(r.name));
+        });
+    }
+
     public loadStatus(): void {
-        console.log('loadStatus()');
         Git.status().then((data: any) => {
-            console.log('status:', data);
             this.stagedFiles.splice(0, this.stagedFiles.length);
             this.unstagedFiles.splice(0, this.unstagedFiles.length);
 
@@ -88,28 +97,27 @@ export default class Repository {
     }
 
     public stageFile(file: any): void {
-        console.log('stageFile()', file);
-        // new Promise<any>((resolve: any, reject: any) => {
-            Git.add(file.path).then((data: any) => {
-                console.log('data', data);
-                this.loadStatus();
-            });
-        // });
-        // this.repo.refreshIndex().then((index: any) => {
-        //     index.addByPath(file.path()).then((result: any) => {
-        //         // Use result
-        //         index.write().then((result: any) => {
-        //             index.writeTree();
-        //             this.loadStatus();
-        //         });
-        //     });
-        // });
+        Git.add(file.path).then((data: any) => {
+            this.loadStatus();
+        });
     }
 
     public unstageFile(file: any): void {
         Git.reset([file.path]).then((data: any) => {
-            console.log('data', data);
             this.loadStatus();
+        });
+    }
+
+    public commit(message: string): void {
+        Git.commit(message).then((data: any) => {
+            this.loadStatus();
+        });
+    }
+
+    public push(): void {
+        console.log('pushed', this.remotes[0] + '/' + this.branchRemoteCurrent.name);
+        Git.push(this.remotes[0], this.branchRemoteCurrent.name).then((data: any) => {
+            console.log('pushed', data);
         });
     }
 }

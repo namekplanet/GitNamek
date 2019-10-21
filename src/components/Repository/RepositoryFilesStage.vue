@@ -41,7 +41,21 @@
                     </li>
                 </ul>
             </div>
-         </div>
+        </div>
+        <div>
+            <div class="shadow">Commit</div>
+            <div>
+                <div>
+                    <textarea class="w-full border" placeholder="Message:"
+                        v-model="commitMessage"></textarea>
+                </div>
+                <div>
+                    <button class="bg-blue-600 text-white p-2 w-full rounded"
+                        :disabled="commitMessage===''"
+                        @click="commit()">Commit</button>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -54,6 +68,7 @@ var Git = require('nodegit');
 export default class RepositoryFilesStage extends Vue {
 
     public visibleLine: string = '';
+    public commitMessage: string = '';
 
     get selectedProject(): Project {
         return this.$store.state.openedProject;
@@ -70,10 +85,14 @@ export default class RepositoryFilesStage extends Vue {
         this.selectedProject.getRepo().unstageFile(file);
     }
 
+    public commit(): void {
+        this.selectedProject.getRepo().commit(this.commitMessage);
+    }
+
     public getFileIcon(file: any): any {
         let label: string = file.status, bgColor: string = 'bg-black';
         if (file.status === '?' || file.status === 'A') {
-            label = 'A';
+            label = 'N';
             bgColor = 'bg-green-500';
         } else if (file.status === 'M') {
             bgColor = 'bg-orange-500';
