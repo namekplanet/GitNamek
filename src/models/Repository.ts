@@ -22,9 +22,8 @@ export default class Repository {
     constructor() {
         // refresh every 5 seconds
         // setInterval(() => {
-        //     console.log('refresh');
         //     if (this.isOpened) {
-        //         this.loadData();
+        //         this.loadStatus();
         //     }
         // }, 5000);
     }
@@ -33,13 +32,13 @@ export default class Repository {
         return new Promise<boolean>((resolve: any, reject: any) => {
             Git.cwd(path).then((path: any) => {
                 this.isOpened = true;
-                this.loadData();
+                this.refresh();
                 resolve(true);
             });
         });
     }
 
-    public loadData(): void {
+    public refresh(): void {
         this.loadBranches();
         this.loadStatus();
         this.loadRemotes();
@@ -109,7 +108,7 @@ export default class Repository {
 
     public commit(message: string): void {
         Git.commit(message).then((data: any) => {
-            this.loadData();
+            this.refresh();
         });
     }
 
@@ -117,7 +116,7 @@ export default class Repository {
         if (this.branchRemoteTracking) {
             const rpb = this.branchRemoteTracking.split('/');
             Git.push(rpb[0], rpb[1]).then((data: any) => {
-                this.loadData();
+                this.refresh();
             });
         }
     }
@@ -125,7 +124,7 @@ export default class Repository {
     public pull(): void {
         Git.pull().then((data: any) => {
             console.log('PULL', data);
-            this.loadData();
+            this.refresh();
         });
     }
 

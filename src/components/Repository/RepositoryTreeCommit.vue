@@ -4,11 +4,11 @@
             <div v-for="(l,i) in selectedProject.getRepo().logs" :key="i"
                 class="flex flex-wrap" >
                 <div class="w-32 py-1">
-                    <div v-if="isLocalHEAD(l)" class="border border-gray-400">
-                        <span>{{ 'LOCAL' }}</span>
-                    </div>
                     <div v-if="isRemoteHEAD(l)"  class="border border-gray-400">
                         <span>{{ 'REMOTE' }}</span>
+                    </div>
+                    <div v-if="isLocalHEAD(l)&&!isRemoteHEAD(l)" class="border border-gray-400">
+                        <span>{{ 'LOCAL' }}</span>
                     </div>
                 </div>
                 <div class="flex-1 py-1">

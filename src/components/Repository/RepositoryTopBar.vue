@@ -2,12 +2,17 @@
     <div v-if="selectedProject" class="float-right">
         <ul>
             <li class="float-left mr-2">
-                <button class="bg-blue-500 text-white rounded px-1"
+                <button class="bg-blue-400 text-gray-100 rounded px-1"
+                    @click="refresh()"
+                >Refresh</button>
+            </li>
+            <li class="float-left mr-2">
+                <button class="bg-blue-500 text-gray-100 rounded px-1"
                     @click="pull()"
                 >Pull</button>
             </li>
             <li class="float-left mr-2">
-                <button class="bg-green-500 text-white rounded px-1"
+                <button class="bg-green-500 text-gray-100 rounded px-1"
                     @click="push()"
                 >({{ selectedProject.getRepo().commitsAhead }}) Push</button>
             </li>
@@ -36,6 +41,10 @@ export default class RepositoryTopBar extends Vue {
 
     public pull(): void {
         this.selectedProject.getRepo().pull();
+    }
+
+    public refresh(): void {
+        this.selectedProject.getRepo().refresh();
     }
 
 }
