@@ -109,7 +109,7 @@ export default class Repository {
 
     public commit(message: string): void {
         Git.commit(message).then((data: any) => {
-            this.loadStatus();
+            this.loadData();
         });
     }
 
@@ -125,7 +125,7 @@ export default class Repository {
     public pull(): void {
         Git.pull().then((data: any) => {
             console.log('PULL', data);
-            // this.loadData();
+            this.loadData();
         });
     }
 

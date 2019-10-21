@@ -3,7 +3,15 @@
         <div>
             <div v-for="(l,i) in selectedProject.getRepo().logs" :key="i"
                 class="flex flex-wrap" >
-                <div class="py-1 w-full" :class="{'border border-gray-400': isLogHEAD(l)}">
+                <div class="w-32 py-1">
+                    <div v-if="isLocalHEAD(l)" class="border border-gray-400">
+                        <span>{{ 'LOCAL' }}</span>
+                    </div>
+                    <div v-if="isRemoteHEAD(l)"  class="border border-gray-400">
+                        <span>{{ 'REMOTE' }}</span>
+                    </div>
+                </div>
+                <div class="flex-1 py-1">
                     <span class="ml-1">{{ l.message }}</span>
                 </div>
             </div>
@@ -25,8 +33,12 @@ export default class RepositoryTreeCommit extends Vue {
     mounted() {
     }
 
-    public isLogHEAD(log: any): boolean {
+    public isLocalHEAD(log: any): boolean {
         return log.refs.indexOf('HEAD ->') >= 0;
+    }
+
+    public isRemoteHEAD(log: any): boolean {
+        return log.refs.indexOf(', ') >= 0;
     }
 
 }
