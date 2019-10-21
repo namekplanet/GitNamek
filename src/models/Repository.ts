@@ -17,6 +17,8 @@ export default class Repository {
 
     public commitsAhead: number = 0;
 
+    public logs: any[] = [];
+
     constructor() {
         // refresh every 5 seconds
         // setInterval(() => {
@@ -41,6 +43,7 @@ export default class Repository {
         this.loadBranches();
         this.loadStatus();
         this.loadRemotes();
+        this.loadLogs();
     }
 
     public loadBranches(): void {
@@ -117,5 +120,23 @@ export default class Repository {
                 this.loadData();
             });
         }
+    }
+
+    public pull(): void {
+        Git.pull().then((data: any) => {
+            console.log('PULL', data);
+            // this.loadData();
+        });
+    }
+
+    public loadLogs(): void {
+        console.log('LOG');
+        Git.log().then((data: any) => {
+            console.log('LOG', data);
+            this.logs.splice(0, this.logs.length);
+            data.all.forEach((l: any) => {
+                this.logs.push(l);
+            });
+        });
     }
 }

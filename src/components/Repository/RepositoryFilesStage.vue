@@ -2,7 +2,7 @@
     <div class="h-full"
          v-if="selectedProject.getRepo()">
          <div>
-            <div class="shadow">Unstaged Files</div>
+            <div class="bg-gray-800 p-1 border-b border-gray-600">Unstaged Files</div>
             <div>
                 <ul class="w-full cursor-pointer">
                     <li v-for="(f,i) in selectedProject.getRepo().unstagedFiles"
@@ -23,7 +23,7 @@
             </div>
          </div>
          <div>
-            <div class="shadow">Staged Files</div>
+            <div class="bg-gray-800 p-1 border-b border-gray-600">Staged Files</div>
             <div>
                 <ul class="w-full cursor-pointer">
                     <li v-for="(f,i) in selectedProject.getRepo().stagedFiles"
@@ -43,7 +43,7 @@
             </div>
         </div>
         <div>
-            <div class="shadow">Commit</div>
+            <div class="bg-gray-800 p-1 border-b border-gray-600">Commit</div>
             <div>
                 <div>
                     <textarea class="w-full border" placeholder="Message:"

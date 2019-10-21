@@ -3,16 +3,19 @@
          v-if="selectedProject.getRepo()">
         <ul>
         	<li>
-                <div class="shadow">LOCAL</div>
+                <div class="bg-gray-800 p-1 border-b border-gray-600">LOCAL</div>
                 <ul class="ml-4">
                     <li v-for="(r,i) in selectedProject.getRepo().refsLocal">{{ r.name }}</li>
                 </ul>
             </li>
             <li>
-                <div class="shadow">REMOTE</div>
+                <div class="bg-gray-800 p-1 border-b border-gray-600">REMOTE</div>
                 <ul class="ml-4">
                     <li v-for="(r,i) in selectedProject.getRepo().refsRemote">{{ r.name }}</li>
                 </ul>
+            </li>
+            <li>
+                <div class="bg-gray-800 p-1 border-b border-gray-600">TAGS</div>
             </li>
         </ul>
     </div>

@@ -1,5 +1,5 @@
 <template>
-    <div id="app" class="absolute inset-0 overflow-hidden">
+    <div id="app" class="absolute inset-0 overflow-hidden bg-gray-900 text-gray-500 text-sm font-bolder">
         <div class="relative h-full">
             <div class="h-12 p-3 border-b shadow absolute inset-x-0">
                 <div class="flex">
@@ -21,6 +21,9 @@
                         </div>
                     </div>
                     <div class="flex-1">
+                        <div v-if="$store.state.openedProject" class="h-full">
+                            <RepositoryTreeCommit/>
+                        </div>
                     </div>
                     <div class="w-64">
                         <div v-if="$store.state.openedProject" class="h-full">
