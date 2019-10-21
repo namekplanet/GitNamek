@@ -31,12 +31,6 @@ export default class Repository {
                 this.loadData();
                 resolve(true);
             });
-            // Git.Repository.open(path).then((repository: any) => {
-            //     this.isOpened = true;
-            //     this.repo = repository;
-            //     this.loadData();
-            //     resolve(true);
-            // });
         });
     }
 
@@ -47,7 +41,6 @@ export default class Repository {
     }
 
     public loadBranches(): void {
-        console.log('loadBranches()');
         // get local branches
         Git.branchLocal().then((data: any) => {
             this.branchLocal.splice(0, this.branchLocal.length);
@@ -58,7 +51,6 @@ export default class Repository {
 
         // get remote branches
         Git.branch('--remotes').then((data: any) => {
-            console.log('BRANCHES: ', data);
             this.branchRemote.splice(0, this.branchRemote.length);
             data.all.forEach((name: string) => {
                 this.branchRemote.push(data.branches[name]);
@@ -77,6 +69,7 @@ export default class Repository {
 
     public loadStatus(): void {
         Git.status().then((data: any) => {
+            console.log('STATUS:', data);
             this.stagedFiles.splice(0, this.stagedFiles.length);
             this.unstagedFiles.splice(0, this.unstagedFiles.length);
 
@@ -115,9 +108,8 @@ export default class Repository {
     }
 
     public push(): void {
-        console.log('pushed', this.remotes[0] + '/' + this.branchRemoteCurrent.name);
         Git.push(this.remotes[0], this.branchRemoteCurrent.name).then((data: any) => {
-            console.log('pushed', data);
+            //
         });
     }
 }
