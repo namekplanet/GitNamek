@@ -3,7 +3,7 @@
         <div>
             <div v-for="(l,i) in selectedProject.getRepo().logs" :key="i"
                 class="flex flex-wrap" >
-                <div class="py-1">
+                <div class="py-1 w-full" :class="{'border border-gray-400': isLogHEAD(l)}">
                     <span class="ml-1">{{ l.message }}</span>
                 </div>
             </div>
@@ -23,6 +23,10 @@ export default class RepositoryTreeCommit extends Vue {
     }
 
     mounted() {
+    }
+
+    public isLogHEAD(log: any): boolean {
+        return log.refs.indexOf('HEAD ->') >= 0;
     }
 
 }
