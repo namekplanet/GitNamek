@@ -96,6 +96,8 @@ export default class RepositoryFilesStage extends Vue {
             bgColor = 'bg-green-500';
         } else if (file.status === 'M') {
             bgColor = 'bg-orange-500';
+        } else if (file.status === 'D') {
+            bgColor = 'bg-red-700';
         }
         return {
             label: label,
