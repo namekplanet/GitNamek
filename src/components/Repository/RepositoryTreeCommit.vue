@@ -30,7 +30,8 @@ export default class RepositoryTreeCommit extends Vue {
         return this.$store.state.openedProject;
     }
 
-    mounted() {
+    public mounted(): void {
+        //
     }
 
     public isLocalHEAD(log: any): boolean {

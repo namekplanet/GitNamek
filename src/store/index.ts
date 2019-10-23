@@ -12,11 +12,24 @@ export default new Vuex.Store({
         openedProject: null,
     },
     mutations: {
-        addProject(state: any, args: any): void {
-            console.log('addProject');
-            state.openedProject = new Project(args['name'], args['path']);
-            state.projects.push(state.openedProject);
-        }
+        loadProjects(state: any): void {
+            const data: any = localStorage.getItem('JUPON_PROJECTS');
+            if (data) {
+                const projects: any = JSON.parse(data);
+                state.projects.splice(0, state.projects.length);
+                projects.forEach((p: any) => {
+                    state.projects.push(new Project(p.name, p.path));
+                });
+            }
+        },
+        addProject(state: any, project: Project): void {
+            state.projects.push(project);
+            localStorage.setItem('JUPON_PROJECTS', JSON.stringify(state.projects));
+        },
+        openProject(state: any, project: Project): void {
+            state.openedProject = project;
+            state.openedProject.openRepo();
+        },
     },
     actions: {
         //

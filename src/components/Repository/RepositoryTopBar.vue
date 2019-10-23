@@ -23,7 +23,6 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import { Project } from '@/models';
-var Git = require('nodegit');
 
 @Component
 export default class RepositoryTopBar extends Vue {
@@ -32,7 +31,8 @@ export default class RepositoryTopBar extends Vue {
         return this.$store.state.openedProject;
     }
 
-    mounted() {
+    public mounted(): void {
+        //
     }
 
     public push(): void {

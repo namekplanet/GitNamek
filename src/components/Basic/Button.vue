@@ -12,7 +12,7 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
 @Component
 export default class Button extends Vue {
 
-    @Prop({ default: 'primary' }) readonly color!: string;
+    @Prop({ default: 'primary' }) public readonly color!: string;
 
     get getStyleClass(): string {
         if (this.color === 'success') {

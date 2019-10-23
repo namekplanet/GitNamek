@@ -62,7 +62,6 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import { Project } from '@/models';
-var Git = require('nodegit');
 
 @Component
 export default class RepositoryFilesStage extends Vue {
@@ -74,7 +73,8 @@ export default class RepositoryFilesStage extends Vue {
         return this.$store.state.openedProject;
     }
 
-    mounted() {
+    public mounted(): void {
+        //
     }
 
     public stageFile(file: any): void {
@@ -90,7 +90,8 @@ export default class RepositoryFilesStage extends Vue {
     }
 
     public getFileIcon(file: any): any {
-        let label: string = file.status, bgColor: string = 'bg-black';
+        let label: string = file.status;
+        let bgColor: string = 'bg-black';
         if (file.status === '?' || file.status === 'A') {
             label = 'N';
             bgColor = 'bg-green-500';
@@ -99,10 +100,7 @@ export default class RepositoryFilesStage extends Vue {
         } else if (file.status === 'D') {
             bgColor = 'bg-red-700';
         }
-        return {
-            label: label,
-            bgColor: bgColor
-        };
+        return { label, bgColor };
     }
 
 }

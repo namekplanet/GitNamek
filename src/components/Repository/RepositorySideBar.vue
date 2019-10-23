@@ -24,7 +24,6 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import { Project } from '@/models';
-var Git = require('nodegit');
 
 @Component
 export default class RepositorySideBar extends Vue {
@@ -35,20 +34,9 @@ export default class RepositorySideBar extends Vue {
         return this.$store.state.openedProject;
     }
 
-
-    mounted() {
-        this.openGitRepo();
+    public mounted(): void {
+        //
     }
-
-    public openGitRepo(): void {
-        console.log('GIT: ', this.selectedProject);
-
-        this.selectedProject.openRepo().then((response: any) => {
-            console.log('is opened: ' + response);
-        });
-
-    }
-
 }
 </script>
 

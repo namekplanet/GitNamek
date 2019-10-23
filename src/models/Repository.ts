@@ -3,21 +3,19 @@ const Git: any = simplegit();
 
 export default class Repository {
 
-    private isOpened: boolean = false;
-    private repo: any;
-
     public remotes: string[] = [];
     public branchLocal: any[] = [];
     public branchRemote: any[] = [];
     public branchRemoteCurrent?: string;
     public branchRemoteTracking?: string;
-
     public stagedFiles: any[] = [];
     public unstagedFiles: any[] = [];
-
     public commitsAhead: number = 0;
-
     public logs: any[] = [];
+
+    private isOpened: boolean = false;
+    private repo: any;
+
 
     constructor() {
         // refresh every 5 seconds
@@ -30,7 +28,7 @@ export default class Repository {
 
     public openRepository(path: string): Promise<boolean> {
         return new Promise<boolean>((resolve: any, reject: any) => {
-            Git.cwd(path).then((path: any) => {
+            Git.cwd(path).then((data: any) => {
                 this.isOpened = true;
                 this.refresh();
                 resolve(true);
@@ -71,7 +69,6 @@ export default class Repository {
 
     public loadStatus(): void {
         Git.status().then((data: any) => {
-            console.log('STATUS:', data);
             this.stagedFiles.splice(0, this.stagedFiles.length);
             this.unstagedFiles.splice(0, this.unstagedFiles.length);
 
@@ -123,15 +120,12 @@ export default class Repository {
 
     public pull(): void {
         Git.pull().then((data: any) => {
-            console.log('PULL', data);
             this.refresh();
         });
     }
 
     public loadLogs(): void {
-        console.log('LOG');
         Git.log().then((data: any) => {
-            console.log('LOG', data);
             this.logs.splice(0, this.logs.length);
             data.all.forEach((l: any) => {
                 this.logs.push(l);
