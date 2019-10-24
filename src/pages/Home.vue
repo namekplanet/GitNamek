@@ -4,8 +4,6 @@
             <div class="h-12">
                 <Button @click="openLocalRepository()" >Open Local Repository
                 </Button>
-
-                <router-link to="/styles">Styles</router-link>
             </div>
 
             <div>

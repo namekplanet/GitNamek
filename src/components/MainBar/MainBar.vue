@@ -22,6 +22,15 @@
                                 </div>
                             </router-link>
                         </li>
+                        <li class="float-left" v-if="isDevelopment">
+                            <router-link to="/styles">
+                                <div class="p-1 px-4 border border-red-500 text-white bolder rounded-r"
+                                    :class="{'bg-gray-500': getSelectedMenuIndex===2}"
+                                    @click="$store.state.menuIndex=2">
+                                    <span>Styles</span>
+                                </div>
+                            </router-link>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -43,8 +52,14 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
 @Component
 export default class MainBar extends Vue {
 
+    private isDevelopment: boolean = false;
+
     get getSelectedMenuIndex(): number {
         return this.$store.state.menuIndex;
+    }
+
+    public mounted(): void {
+        this.isDevelopment = process.env.NODE_ENV === 'development';
     }
 }
 </script>
