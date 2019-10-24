@@ -10,6 +10,7 @@ export default new Vuex.Store({
     state: {
         projects: [] as Project[],
         openedProject: null,
+        menuIndex: 0 as number,
     },
     mutations: {
         loadProjects(state: any): void {
@@ -29,6 +30,7 @@ export default new Vuex.Store({
         openProject(state: any, project: Project): void {
             state.openedProject = project;
             state.openedProject.openRepo();
+            state.menuIndex = 1;
         },
     },
     actions: {

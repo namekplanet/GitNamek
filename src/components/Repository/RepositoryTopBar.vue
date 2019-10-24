@@ -1,20 +1,20 @@
 <template>
     <div v-if="selectedProject" class="float-right">
         <ul>
-            <li class="float-left mr-2">
-                <button class="bg-blue-400 text-gray-100 rounded px-1"
+            <li class="float-left mr-1">
+                <Button color="info"
                     @click="refresh()"
-                >Refresh</button>
+                >Refresh</Button>
             </li>
-            <li class="float-left mr-2">
-                <button class="bg-blue-500 text-gray-100 rounded px-1"
+            <li class="float-left mr-1">
+                <Button color="success"
                     @click="pull()"
-                >Pull</button>
+                >Pull</Button>
             </li>
-            <li class="float-left mr-2">
-                <button class="bg-green-500 text-gray-100 rounded px-1"
+            <li class="float-left mr-1">
+                <Button color="primary"
                     @click="push()"
-                >({{ selectedProject.getRepo().commitsAhead }}) Push</button>
+                >({{ selectedProject.getRepo().commitsAhead }}) Push</Button>
             </li>
         </ul>
     </div>

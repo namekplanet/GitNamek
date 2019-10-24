@@ -17,6 +17,8 @@ export default class Button extends Vue {
     get getStyleClass(): string {
         if (this.color === 'success') {
             return this.getSuccess();
+        } else if (this.color === 'info') {
+            return this.getInfo();
         }
         return this.getPrimary();
     }
@@ -27,6 +29,10 @@ export default class Button extends Vue {
 
     public getSuccess(): string {
         return 'bg-green-800 text-gray-100';
+    }
+
+    public getInfo(): string {
+        return 'bg-blue-500 text-gray-100';
     }
 
     public onClick(): void {

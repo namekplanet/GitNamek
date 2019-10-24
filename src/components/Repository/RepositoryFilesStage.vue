@@ -2,6 +2,10 @@
     <div class="h-full"
          v-if="selectedProject.getRepo()">
          <div>
+            <!-- Action bar -->
+            <div class="p-1 text-right">
+                <Button color="success" @click="stageAll()">Stage all</Button>
+            </div>
             <div class="bg-gray-800 p-1 border-b border-gray-600">Unstaged Files</div>
             <div>
                 <ul class="w-full cursor-pointer">
@@ -79,6 +83,10 @@ export default class RepositoryFilesStage extends Vue {
 
     public stageFile(file: any): void {
         this.selectedProject.getRepo().stageFile(file);
+    }
+
+    public stageAll(): void {
+        this.selectedProject.getRepo().stageAll();
     }
 
     public unstageFile(file: any): void {

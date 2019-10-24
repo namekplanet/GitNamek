@@ -97,6 +97,13 @@ export default class Repository {
         });
     }
 
+    public stageAll(): void {
+        const listUnstagePaths: string[] = this.unstagedFiles.map((f: any) => f.path);
+        Git.add(listUnstagePaths).then((data: any) => {
+            this.loadStatus();
+        });
+    }
+
     public unstageFile(file: any): void {
         Git.reset([file.path]).then((data: any) => {
             this.loadStatus();

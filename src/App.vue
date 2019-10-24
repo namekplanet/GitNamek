@@ -3,7 +3,7 @@
         <div>
             <MainBar/>
         </div>
-        <div class="absolute inset-0" style="top:35px;">
+        <div class="absolute inset-0" style="top:40px;">
             <router-view/>
         </div>
     </div>
