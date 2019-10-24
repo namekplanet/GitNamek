@@ -3,19 +3,64 @@
          v-if="selectedProject.getRepo()">
         <ul>
         	<li>
-                <div class="bg-gray-800 p-1 border-b border-gray-600">LOCAL</div>
-                <ul class="ml-4">
-                    <li v-for="(r,i) in selectedProject.getRepo().refsLocal">{{ r.name }}</li>
+                <div class="bg-gray-800 p-1">
+                    <div class="flex">
+                        <div class="flex-1">
+                            <span class="font-bold">LOCAL</span>
+                        </div>
+                        <div class="">
+                            <Dropdown label="+" @click="onDropdownAction">
+                                <DropdownItem label="Create New" :value="1"></DropdownItem>
+                            </Dropdown>
+                        </div>
+                    </div>
+                </div>
+                <ul class="">
+                    <li v-for="(r,i) in selectedProject.getRepo().branchLocal">
+                        <div class="flex">
+                            <div class="flex-1 cursor-pointer hover:bg-gray-600 hover:text-white py-1 px-3">
+                                <span>{{ r.name }}</span>
+                            </div>
+                            <div class="">
+                            </div>
+                        </div>
+                    </li>
+                    <li v-if="showNewBranchLocal">
+                        <div class="flex p-1">
+                            <div class="flex-1">
+                                <input type="text" class="w-full p-1" v-model="branchNameLocal">
+                            </div>
+                            <div class="">
+                                <Button v-if="branchNameLocal==''" @click="showNewBranchLocal=false" color="warning">C</Button>
+                                <Button v-else @click="createNewBranchLocal" color="primary">+</Button>
+                            </div>
+                        </div>
+                    </li>
                 </ul>
             </li>
             <li>
-                <div class="bg-gray-800 p-1 border-b border-gray-600">REMOTE</div>
-                <ul class="ml-4">
-                    <li v-for="(r,i) in selectedProject.getRepo().refsRemote">{{ r.name }}</li>
+                <div class="bg-gray-800 p-1">
+                    <span class="font-bold">REMOTE</span>
+                </div>
+                <ul class="">
+                    <li v-for="(r,i) in selectedProject.getRepo().branchRemote">
+                        <div class="flex">
+                            <div class="flex-1">
+                                {{ r.name }}
+                            </div>
+                            <div class="">
+                            </div>
+                        </div>
+                    </li>
                 </ul>
             </li>
             <li>
-                <div class="bg-gray-800 p-1 border-b border-gray-600">TAGS</div>
+                <div class="bg-gray-800 p-1">
+                    <span class="font-bold">TAGS</span>
+                </div>
+                <ul class="">
+                    <li v-for="(t,i) in selectedProject.getRepo().tags">{{ t }}</li>
+                </ul>
             </li>
         </ul>
     </div>
@@ -29,6 +74,8 @@ import { Project } from '@/models';
 export default class RepositorySideBar extends Vue {
 
     public listRepositories: string[] = [];
+    public showNewBranchLocal: boolean = false;
+    public branchNameLocal: string = '';
 
     get selectedProject(): Project {
         return this.$store.state.openedProject;
@@ -36,6 +83,18 @@ export default class RepositorySideBar extends Vue {
 
     public mounted(): void {
         //
+    }
+
+    public onDropdownAction(value: any): void {
+        if (value === 1) {
+            this.showNewBranchLocal = true;
+        }
+    }
+
+    public createNewBranchLocal(): void {
+        this.selectedProject.getRepo().createLocalBranch(this.branchNameLocal);
+        this.branchNameLocal = '';
+        this.showNewBranchLocal = false;
     }
 }
 </script>

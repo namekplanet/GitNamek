@@ -3,16 +3,16 @@
         <div>
             <div v-for="(l,i) in selectedProject.getRepo().logs" :key="i"
                 class="flex flex-wrap" >
-                <div class="w-32 py-1">
-                    <div v-if="isRemoteHEAD(l)"  class="border border-gray-400">
+                <div class="w-32">
+                    <div v-if="isRemoteHEAD(l)" class="bg-green-900 p-1">
                         <span>{{ 'REMOTE' }}</span>
                     </div>
-                    <div v-if="isLocalHEAD(l)&&!isRemoteHEAD(l)" class="border border-gray-400">
+                    <div v-if="isLocalHEAD(l)&&!isRemoteHEAD(l)" class="bg-green-900 p-1">
                         <span>{{ 'LOCAL' }}</span>
                     </div>
                 </div>
-                <div class="flex-1 py-1">
-                    <span class="ml-1">{{ l.message }}</span>
+                <div class="flex-1">
+                    <div class="p-1 cursor-pointer hover:bg-gray-800">{{ l.message }}</div>
                 </div>
             </div>
         </div>

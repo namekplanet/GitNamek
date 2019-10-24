@@ -1,10 +1,10 @@
 <template>
-    <div class="h-full"
+    <div class="h-full relative"
          v-if="selectedProject.getRepo()">
          <div>
             <div class="flex bg-gray-800 p-1 border-b border-gray-600">
                 <div class="flex-1">
-                    <span class="">Unstaged Files</span>
+                    <span class="font-bold">Unstaged Files</span>
                 </div>
                 <div class="flex-initial text-right">
                     <Button color="success" @click="stageAll()">Stage all</Button>
@@ -30,7 +30,14 @@
             </div>
          </div>
          <div>
-            <div class="bg-gray-800 p-1 border-b border-gray-600">Staged Files</div>
+            <div class="flex bg-gray-800 p-1 border-b border-gray-600">
+                <div class="flex-1">
+                    <span class="font-bold">Staged Files</span>
+                </div>
+                <div class="flex-initial text-right">
+                    <Button color="success" @click="unstageAll()">Unstage all</Button>
+                </div>
+            </div>
             <div>
                 <ul class="w-full cursor-pointer">
                     <li v-for="(f,i) in selectedProject.getRepo().stagedFiles"
@@ -49,17 +56,19 @@
                 </ul>
             </div>
         </div>
-        <div>
-            <div class="bg-gray-800 p-1 border-b border-gray-600">Commit</div>
+        <div class="absolute bottom-0 inset-x-0">
+            <div class="bg-gray-800 p-1">
+                <span class="font-bold">Commit Message</span>
+            </div>
             <div>
-                <div>
-                    <textarea class="w-full border" placeholder="Message:"
+                <div class="h-32">
+                    <textarea class="p-1 w-full h-full bg-gray-700 font-bold" placeholder="Message:"
                         v-model="commitMessage"></textarea>
                 </div>
-                <div>
-                    <button class="bg-blue-600 text-white p-2 w-full rounded"
+                <div class="p-3">
+                    <Button class="w-full py-3"
                         :disabled="commitMessage===''"
-                        @click="commit()">Commit</button>
+                        @click="commit()">Commit</Button>
                 </div>
             </div>
         </div>
@@ -94,6 +103,10 @@ export default class RepositoryFilesStage extends Vue {
 
     public unstageFile(file: any): void {
         this.selectedProject.getRepo().unstageFile(file);
+    }
+
+    public unstageAll(): void {
+        this.selectedProject.getRepo().unstageAll();
     }
 
     public commit(): void {

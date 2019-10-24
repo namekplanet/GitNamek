@@ -6,6 +6,7 @@ export default class Repository {
     public remotes: string[] = [];
     public branchLocal: any[] = [];
     public branchRemote: any[] = [];
+    public tags: any[] = [];
     public branchRemoteCurrent?: string;
     public branchRemoteTracking?: string;
     public stagedFiles: any[] = [];
@@ -38,6 +39,7 @@ export default class Repository {
 
     public refresh(): void {
         this.loadBranches();
+        this.loadTags();
         this.loadStatus();
         this.loadRemotes();
         this.loadLogs();
@@ -57,6 +59,15 @@ export default class Repository {
             this.branchRemote.splice(0, this.branchRemote.length);
             data.all.forEach((name: string) => {
                 this.branchRemote.push(data.branches[name]);
+            });
+        });
+    }
+
+    public loadTags(): void {
+        Git.tags().then((data: any) => {
+            this.tags.splice(0, this.tags.length);
+            data.all.forEach((name: string) => {
+                this.tags.push(name);
             });
         });
     }
@@ -110,6 +121,13 @@ export default class Repository {
         });
     }
 
+    public unstageAll(): void {
+        const listStagePaths: string[] = this.stagedFiles.map((f: any) => f.path);
+        Git.reset(listStagePaths).then((data: any) => {
+            this.loadStatus();
+        });
+    }
+
     public commit(message: string): void {
         Git.commit(message).then((data: any) => {
             this.refresh();
@@ -137,6 +155,12 @@ export default class Repository {
             data.all.forEach((l: any) => {
                 this.logs.push(l);
             });
+        });
+    }
+
+    public createLocalBranch(name: string): void {
+        Git.raw(['branch', name]).then((data: any) => {
+            this.refresh();
         });
     }
 }

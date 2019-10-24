@@ -10,6 +10,18 @@
                     <Button color="success" class="ml-2">Success</Button>
                 </div>
             </div>
+
+            <div class="p-2 mt-5">
+                <div>
+                    <span>Dropdown</span>
+                </div>
+                <div>
+                    <Dropdown label="+" @click="onSelectItem">
+                        <DropdownItem label="Bla Bla" value="1"></DropdownItem>
+                        <DropdownItem label="Bla Bla" value="2"></DropdownItem>
+                    </Dropdown>
+                </div>
+            </div>
         </div>
     </div>
 </template>
@@ -18,7 +30,12 @@
 import { Component, Vue } from 'vue-property-decorator';
 
 @Component
-export default class Styles extends Vue {}
+export default class Styles extends Vue {
+
+    public onSelectItem(data: any): void {
+        //
+    }
+}
 </script>
 
 <style lang="scss">

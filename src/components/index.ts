@@ -2,6 +2,8 @@ import Vue from 'vue';
 
 // basics
 import Button from '@/components/Basic/Button.vue';
+import Dropdown from '@/components/Basic/Dropdown.vue';
+import DropdownItem from '@/components/Basic/DropdownItem.vue';
 
 // components
 import MainBar from '@/components/MainBar/MainBar.vue';
@@ -12,6 +14,8 @@ import RepositoryTreeCommit from '@/components/Repository/RepositoryTreeCommit.v
 
 
 Vue.component('Button', Button);
+Vue.component('Dropdown', Dropdown);
+Vue.component('DropdownItem', DropdownItem);
 
 Vue.component('MainBar', MainBar);
 Vue.component('RepositorySideBar', RepositorySideBar);

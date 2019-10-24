@@ -19,6 +19,8 @@ export default class Button extends Vue {
             return this.getSuccess();
         } else if (this.color === 'info') {
             return this.getInfo();
+        } else if (this.color === 'warning') {
+            return this.getWarning();
         }
         return this.getPrimary();
     }
@@ -33,6 +35,10 @@ export default class Button extends Vue {
 
     public getInfo(): string {
         return 'bg-blue-500 text-gray-100';
+    }
+
+    public getWarning(): string {
+        return 'bg-yellow-600 text-gray-100';
     }
 
     public onClick(): void {
