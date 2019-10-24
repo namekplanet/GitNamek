@@ -1,5 +1,4 @@
-import * as simplegit from 'simple-git/promise';
-const Git: any = simplegit();
+import simplegit, { SimpleGit } from 'simple-git/promise'
 
 export default class Repository {
 
@@ -16,20 +15,16 @@ export default class Repository {
 
     private isOpened: boolean = false;
     private repo: any;
+    private Git: SimpleGit;
 
 
     constructor() {
-        // refresh every 5 seconds
-        // setInterval(() => {
-        //     if (this.isOpened) {
-        //         this.loadStatus();
-        //     }
-        // }, 5000);
+        this.Git = simplegit();
     }
 
     public openRepository(path: string): Promise<boolean> {
         return new Promise<boolean>((resolve: any, reject: any) => {
-            Git.cwd(path).then((data: any) => {
+            this.Git.cwd(path).then((data: any) => {
                 this.isOpened = true;
                 this.refresh();
                 resolve(true);
@@ -47,7 +42,7 @@ export default class Repository {
 
     public loadBranches(): void {
         // get local branches
-        Git.branchLocal().then((data: any) => {
+        this.Git.branchLocal().then((data: any) => {
             this.branchLocal.splice(0, this.branchLocal.length);
             data.all.forEach((name: string) => {
                 this.branchLocal.push(data.branches[name]);
@@ -55,7 +50,7 @@ export default class Repository {
         });
 
         // get remote branches
-        Git.branch('--remotes').then((data: any) => {
+        this.Git.branch('--remotes').then((data: any) => {
             this.branchRemote.splice(0, this.branchRemote.length);
             data.all.forEach((name: string) => {
                 this.branchRemote.push(data.branches[name]);
@@ -64,7 +59,7 @@ export default class Repository {
     }
 
     public loadTags(): void {
-        Git.tags().then((data: any) => {
+        this.Git.tags().then((data: any) => {
             this.tags.splice(0, this.tags.length);
             data.all.forEach((name: string) => {
                 this.tags.push(name);
@@ -73,13 +68,13 @@ export default class Repository {
     }
 
     public loadRemotes(): void {
-        Git.getRemotes().then((data: any) => {
+        this.Git.getRemotes().then((data: any) => {
             data.forEach((r: any) => this.remotes.push(r.name));
         });
     }
 
     public loadStatus(): void {
-        Git.status().then((data: any) => {
+        this.Git.status().then((data: any) => {
             this.stagedFiles.splice(0, this.stagedFiles.length);
             this.unstagedFiles.splice(0, this.unstagedFiles.length);
 
@@ -103,33 +98,33 @@ export default class Repository {
     }
 
     public stageFile(file: any): void {
-        Git.add(file.path).then((data: any) => {
+        this.Git.add(file.path).then((data: any) => {
             this.loadStatus();
         });
     }
 
     public stageAll(): void {
         const listUnstagePaths: string[] = this.unstagedFiles.map((f: any) => f.path);
-        Git.add(listUnstagePaths).then((data: any) => {
+        this.Git.add(listUnstagePaths).then((data: any) => {
             this.loadStatus();
         });
     }
 
     public unstageFile(file: any): void {
-        Git.reset([file.path]).then((data: any) => {
+        this.Git.reset([file.path]).then((data: any) => {
             this.loadStatus();
         });
     }
 
     public unstageAll(): void {
         const listStagePaths: string[] = this.stagedFiles.map((f: any) => f.path);
-        Git.reset(listStagePaths).then((data: any) => {
+        this.Git.reset(listStagePaths).then((data: any) => {
             this.loadStatus();
         });
     }
 
     public commit(message: string): void {
-        Git.commit(message).then((data: any) => {
+        this.Git.commit(message).then((data: any) => {
             this.refresh();
         });
     }
@@ -137,20 +132,20 @@ export default class Repository {
     public push(): void {
         if (this.branchRemoteTracking) {
             const rpb = this.branchRemoteTracking.split('/');
-            Git.push(rpb[0], rpb[1]).then((data: any) => {
+            this.Git.push(rpb[0], rpb[1]).then((data: any) => {
                 this.refresh();
             });
         }
     }
 
     public pull(): void {
-        Git.pull().then((data: any) => {
+        this.Git.pull().then((data: any) => {
             this.refresh();
         });
     }
 
     public loadLogs(): void {
-        Git.log().then((data: any) => {
+        this.Git.log().then((data: any) => {
             this.logs.splice(0, this.logs.length);
             data.all.forEach((l: any) => {
                 this.logs.push(l);
@@ -159,7 +154,7 @@ export default class Repository {
     }
 
     public createLocalBranch(name: string): void {
-        Git.raw(['branch', name]).then((data: any) => {
+        this.Git.raw(['branch', name]).then((data: any) => {
             this.refresh();
         });
     }

@@ -1,34 +1,7 @@
-# jupiterone
+# JupiterOne
 
-## Project setup
-```
-yarn install
-```
+![JupiterOne Logo](/src/assets/JupiterOne-logo/cover.png)
 
-### Compiles and hot-reloads for development
-```
-yarn run serve
-```
+A Git client for all platforms
 
-### Compiles and minifies for production
-```
-yarn run build
-```
-
-### Run your tests
-```
-yarn run test
-```
-
-### Lints and fixes files
-```
-yarn run lint
-```
-
-### Run your unit tests
-```
-yarn run test:unit
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+Status: In Development
