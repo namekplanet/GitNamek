@@ -2,16 +2,19 @@
     <div class="h-full"
          v-if="selectedProject.getRepo()">
          <div>
-            <!-- Action bar -->
-            <div class="p-1 text-right">
-                <Button color="success" @click="stageAll()">Stage all</Button>
+            <div class="flex bg-gray-800 p-1 border-b border-gray-600">
+                <div class="flex-1">
+                    <span class="">Unstaged Files</span>
+                </div>
+                <div class="flex-initial text-right">
+                    <Button color="success" @click="stageAll()">Stage all</Button>
+                </div>
             </div>
-            <div class="bg-gray-800 p-1 border-b border-gray-600">Unstaged Files</div>
             <div>
                 <ul class="w-full cursor-pointer">
                     <li v-for="(f,i) in selectedProject.getRepo().unstagedFiles"
                         @mouseover="visibleLine='u'+i" @mouseleave="visibleLine=''"
-                        class="border-b border-gray-200 relative"
+                        class="border-b border-gray-800 relative"
                         :class="{'bg-gray-100': visibleLine==='u'+i}">
                         <span class="text-white p-1 text-xs"
                             :class="getFileIcon(f).bgColor">
@@ -20,7 +23,7 @@
                         <span class="ml-1 text-sm">{{ f.path }}</span>
                         <button v-show="visibleLine==='u'+i"
                             @click="stageFile(f)"
-                            class="border-none px-2 mt-1 text-xs absolute top-0 right-0 text-white bg-green-500 font-bold"
+                            class="px-2 text-xs absolute top-0 bottom-0 right-0 text-white bg-green-500 font-bold"
                             >Stage</button>
                     </li>
                 </ul>
@@ -32,7 +35,7 @@
                 <ul class="w-full cursor-pointer">
                     <li v-for="(f,i) in selectedProject.getRepo().stagedFiles"
                         @mouseover="visibleLine='s'+i" @mouseleave="visibleLine=''"
-                        class="border-b border-gray-200 relative"
+                        class="border-b border-gray-800 relative"
                         :class="{'bg-gray-100': visibleLine==='s'+i}">
                         <span class="text-white p-1 text-xs"
                             :class="getFileIcon(f).bgColor">
@@ -41,7 +44,7 @@
                         <span class="ml-1 text-sm">{{ f.path }}</span>
                         <button v-show="visibleLine==='s'+i"
                             @click="unstageFile(f)"
-                            class="border px-2 mt-1 text-xs absolute top-0 right-0 text-white bg-orange-500 font-bold">Untage</button>
+                            class="px-2 text-xs absolute top-0 bottom-0 right-0 text-white bg-orange-500 font-bold">Untage</button>
                     </li>
                 </ul>
             </div>
