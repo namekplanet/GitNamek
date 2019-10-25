@@ -124,7 +124,10 @@ export default class Repository {
     }
 
     public commit(message: string): void {
-        this._commit(message).then((data: any) => {
+        const request: any = async (msg: string) => {
+            return await Git(this.repoPath).commit(msg);
+        };
+        request(message).then((data: any) => {
             this.refresh();
         });
     }
