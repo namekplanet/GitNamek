@@ -122,8 +122,9 @@ export default class Repository {
     }
 
     public commit(message: string): void {
-        Git(this.repoPath).commit(message);
-        this.refresh();
+        Git(this.repoPath).commit(message, () => {
+            this.refresh();
+        });
     }
 
     public push(): void {
