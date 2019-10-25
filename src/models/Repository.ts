@@ -109,7 +109,6 @@ export default class Repository {
     }
 
     public unstageFile(file: any): void {
-        console.log('unstageFile()');
         this._raw(['reset', file.path]).then((data: any) => {
             this.loadStatus();
         });
@@ -160,10 +159,6 @@ export default class Repository {
         Git(this.repoPath).raw(['branch', name], (data: any) => {
             this.refresh();
         });
-    }
-
-    private async _commit(message: string) {
-        return await Git(this.repoPath).commit(message);
     }
 
     private async _raw(data: any) {
