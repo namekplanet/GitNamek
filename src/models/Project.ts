@@ -2,14 +2,14 @@ import Repository from './Repository';
 
 export default class Project {
 
-    public name?: string;
-    public path?: string;
+    public name: string;
+    public path: string;
     public repo: Repository;
 
-    constructor(name?: string, path?: string) {
+    constructor(name: string, path: string) {
         this.name = name;
         this.path = path;
-        this.repo = new Repository();
+        this.repo = new Repository(path);
     }
 
     /**

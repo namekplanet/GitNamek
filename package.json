@@ -16,7 +16,6 @@
   "dependencies": {
     "core-js": "^3.1.2",
     "fs": "^0.0.1-security",
-    "nodegit": "^0.26.2",
     "simple-git": "^1.126.0",
     "vue": "^2.6.10",
     "vue-class-component": "^7.0.2",
@@ -26,6 +25,7 @@
   },
   "devDependencies": {
     "@types/jest": "^24.0.11",
+    "@types/node": "^12.11.7",
     "@vue/cli-plugin-babel": "^4.0.0",
     "@vue/cli-plugin-typescript": "^4.0.0",
     "@vue/cli-plugin-unit-jest": "^4.0.0",

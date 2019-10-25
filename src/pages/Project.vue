@@ -40,6 +40,12 @@ import { Component, Vue } from 'vue-property-decorator';
 export default class Project extends Vue {
 
     public toggleFullSidebar: boolean = false;
+
+    public mounted(): void {
+        if (!this.$store.state.openedProject) {
+            this.$router.push('/');
+        }
+    }
 }
 </script>
 
