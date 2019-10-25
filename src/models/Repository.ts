@@ -124,7 +124,7 @@ export default class Repository {
     }
 
     public commit(message: string): void {
-        Git(this.repoPath).commit(message, null, [], (data: any) => {
+        this._commit(message).then((data: any) => {
             this.refresh();
         });
     }
@@ -157,6 +157,10 @@ export default class Repository {
         Git(this.repoPath).raw(['branch', name], (data: any) => {
             this.refresh();
         });
+    }
+
+    private async _commit(message: string) {
+        return await Git(this.repoPath).commit(message);
     }
 
     private async _raw(data: any) {
