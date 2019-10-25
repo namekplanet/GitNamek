@@ -1,4 +1,4 @@
-import simplegit, { SimpleGit } from 'simple-git/promise'
+import simplegit, { SimpleGit } from 'simple-git/promise';
 
 export default class Repository {
 
@@ -12,7 +12,6 @@ export default class Repository {
     public unstagedFiles: any[] = [];
     public commitsAhead: number = 0;
     public logs: any[] = [];
-
     private isOpened: boolean = false;
     private repo: any;
     private Git: SimpleGit;
@@ -50,7 +49,7 @@ export default class Repository {
         });
 
         // get remote branches
-        this.Git.branch('--remotes').then((data: any) => {
+        this.Git.branch(['--remotes']).then((data: any) => {
             this.branchRemote.splice(0, this.branchRemote.length);
             data.all.forEach((name: string) => {
                 this.branchRemote.push(data.branches[name]);
@@ -68,7 +67,7 @@ export default class Repository {
     }
 
     public loadRemotes(): void {
-        this.Git.getRemotes().then((data: any) => {
+        this.Git.getRemotes(true).then((data: any) => {
             data.forEach((r: any) => this.remotes.push(r.name));
         });
     }
