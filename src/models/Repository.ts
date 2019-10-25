@@ -74,7 +74,6 @@ export default class Repository {
 
     public loadStatus(): void {
         Git(this.repoPath).status((err: any, data: any) => {
-            console.log('data', data);
             this.stagedFiles.splice(0, this.stagedFiles.length);
             this.unstagedFiles.splice(0, this.unstagedFiles.length);
             this.commitsAhead = data.ahead;
@@ -110,19 +109,22 @@ export default class Repository {
     }
 
     public unstageFile(file: any): void {
-        Git(this.repoPath).reset([file.path], (data: any) => {
+        console.log('unstageFile()');
+        this._raw(['reset', file.path]).then((data: any) => {
             this.loadStatus();
         });
     }
 
     public unstageAll(): void {
         const listStagePaths: string[] = this.stagedFiles.map((f: any) => f.path);
-        Git(this.repoPath).reset(listStagePaths);
-        this.loadStatus();
+        listStagePaths.unshift('reset');
+        this._raw(listStagePaths).then((data: any) => {
+            this.loadStatus();
+        });
     }
 
     public commit(message: string): void {
-        Git(this.repoPath).commit(message, () => {
+        Git(this.repoPath).commit(message, null, [], (data: any) => {
             this.refresh();
         });
     }
@@ -155,5 +157,9 @@ export default class Repository {
         Git(this.repoPath).raw(['branch', name], (data: any) => {
             this.refresh();
         });
+    }
+
+    private async _raw(data: any) {
+        return await Git(this.repoPath).raw(data);
     }
 }
