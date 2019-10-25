@@ -5,7 +5,6 @@ module.exports = {
             build: {
                 appId: 'pt.pedroladeira.jupiterone',
                 productName: 'JupiterOne',
-                buildDependenciesFromSource: true
             },
             builderOptions: {
                 dmg: {

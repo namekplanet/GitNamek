@@ -74,6 +74,7 @@ export default class Repository {
 
     public loadStatus(): void {
         Git(this.repoPath).status((err: any, data: any) => {
+            console.log('data', data);
             this.stagedFiles.splice(0, this.stagedFiles.length);
             this.unstagedFiles.splice(0, this.unstagedFiles.length);
             this.commitsAhead = data.ahead;
@@ -116,9 +117,8 @@ export default class Repository {
 
     public unstageAll(): void {
         const listStagePaths: string[] = this.stagedFiles.map((f: any) => f.path);
-        Git(this.repoPath).reset(listStagePaths, (data: any) => {
-            this.loadStatus();
-        });
+        Git(this.repoPath).reset(listStagePaths);
+        this.loadStatus();
     }
 
     public commit(message: string): void {
