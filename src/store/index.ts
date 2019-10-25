@@ -27,6 +27,13 @@ export default new Vuex.Store({
             state.projects.push(project);
             localStorage.setItem('JUPON_PROJECTS', JSON.stringify(state.projects));
         },
+        removeProject(state: any, project: Project): void {
+            const index: number = state.projects.indexOf(project);
+            if (index >= 0) {
+                state.projects.splice(index, 1);
+            }
+            localStorage.setItem('JUPON_PROJECTS', JSON.stringify(state.projects));
+        },
         openProject(state: any, project: Project): void {
             state.openedProject = project;
             state.openedProject.openRepo();

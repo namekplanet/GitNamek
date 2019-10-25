@@ -11,9 +11,16 @@
                 <div>
                     <ul>
                         <li v-for="(p,i) in projectsList" :key="i">
-                            <div class="bg-gray-700 cursor-pointer p-2"
-                                @click="onpenGitRepository(p)">
-                                <span>{{ p.name }}</span>
+                            <div class="bg-gray-700 cursor-pointer p-2">
+                                <div class="flex">
+                                    <div class="flex-1 cursor-pointer"
+                                        @click="onpenGitRepository(p)">
+                                        <span>{{ p.name }}</span>
+                                    </div>
+                                    <div>
+                                        <button @click="removeLocalRepository(p)">Close</button>
+                                    </div>
+                                </div>
                             </div>
                         </li>
                     </ul>
@@ -66,6 +73,15 @@ export default class Home extends Vue {
     public onpenGitRepository(project: Project): void {
         this.$store.commit('openProject', project);
         this.$router.push('/project');
+    }
+
+    /**
+     * Remove list of local repositories
+     *
+     * @param {Project} project
+     */
+    public removeLocalRepository(project: Project): void {
+        this.$store.commit('removeProject', project);
     }
 
     /**
