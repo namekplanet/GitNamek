@@ -12,7 +12,7 @@
                         <div v-if="$store.state.openedFile" class="h-full">
                             <FileEditor/>
                         </div>
-                        <div v-else class="h-full">
+                        <div v-else class="h-full overflow-y-scroll">
                             <RepositoryTreeCommit/>
                         </div>
                     </div>
