@@ -14,18 +14,27 @@
                 <ul class="w-full cursor-pointer">
                     <li v-for="(f,i) in selectedProject.getRepo().unstagedFiles"
                         @mouseover="visibleLine='u'+i" @mouseleave="visibleLine=''"
-                        @click="openFile(f)"
-                        class="border-b border-gray-800 relative"
+                        class="flex border-b border-gray-800 relative"
                         :class="{'bg-gray-100': visibleLine==='u'+i}">
-                        <span class="text-white p-1 text-xs"
+                        <div>
+                            <span class="text-white p-1 text-xs"
                             :class="getFileIcon(f).bgColor">
                             {{ getFileIcon(f).label }}
                         </span>
-                        <span class="ml-1 text-sm">{{ f.path }}</span>
-                        <button v-show="visibleLine==='u'+i"
-                            @click="stageFile(f)"
-                            class="px-2 text-xs absolute top-0 bottom-0 right-0 text-white bg-green-500 font-bold"
-                            >Stage</button>
+                        </div>
+                        <div class="flex-1">
+                            <span class="ml-1 text-sm"
+                                @click="openFile(f)">
+                                {{ f.path }}
+                            </span>
+                        </div>
+                        <div class="absolute right-0 top-0 bottom-0" v-show="visibleLine==='u'+i">
+                            <button
+                                @click="stageFile(f)"
+                                class="px-2 text-xs text-white bg-green-500 font-bold">
+                                Stage
+                            </button>
+                        </div>
                     </li>
                 </ul>
             </div>
@@ -43,16 +52,27 @@
                 <ul class="w-full cursor-pointer">
                     <li v-for="(f,i) in selectedProject.getRepo().stagedFiles"
                         @mouseover="visibleLine='s'+i" @mouseleave="visibleLine=''"
-                        class="border-b border-gray-800 relative"
+                        class="flex border-b border-gray-800 relative"
                         :class="{'bg-gray-100': visibleLine==='s'+i}">
-                        <span class="text-white p-1 text-xs"
+                        <div>
+                            <span class="text-white p-1 text-xs"
                             :class="getFileIcon(f).bgColor">
                             {{ getFileIcon(f).label }}
                         </span>
-                        <span class="ml-1 text-sm">{{ f.path }}</span>
-                        <button v-show="visibleLine==='s'+i"
-                            @click="unstageFile(f)"
-                            class="px-2 text-xs absolute top-0 bottom-0 right-0 text-white bg-orange-500 font-bold">Untage</button>
+                        </div>
+                        <div class="flex-1">
+                            <span class="ml-1 text-sm"
+                                @click="openFile(f)">
+                                {{ f.path }}
+                            </span>
+                        </div>
+                        <div class="absolute right-0 top-0 bottom-0" v-show="visibleLine==='s'+i">
+                            <button
+                                @click="unstageFile(f)"
+                                class="px-2 text-xs text-white bg-orange-500 font-bold">
+                                Unstage
+                            </button>
+                        </div>
                     </li>
                 </ul>
             </div>
