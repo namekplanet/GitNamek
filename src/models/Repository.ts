@@ -182,7 +182,10 @@ export default class Repository {
     }
 
     public createLocalBranch(name: string): void {
-        Git(this.repoPath).raw(['branch', name], (data: any) => {
+        const request: any = async (bname: string) => {
+            return await Git(this.repoPath).raw(['branch', bname]);
+        };
+        request(name).then((data: any) => {
             this.refresh();
         });
     }
