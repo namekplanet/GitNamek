@@ -131,8 +131,12 @@ export default class RepositoryFilesStage extends Vue {
     }
 
     public commit(): void {
-        this.commitMessage = '';
-        this.selectedProject.getRepo().commit(this.commitMessage);
+        const request = async () => {
+            return await this.selectedProject.getRepo().commit(this.commitMessage);
+        };
+        request().then(() => {
+            this.commitMessage = '';
+        });
     }
 
     public getFileIcon(file: any): any {
