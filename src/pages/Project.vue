@@ -9,7 +9,10 @@
                         </div>
                     </div>
                     <div class="flex-1" v-show="!toggleFullSidebar">
-                        <div v-if="$store.state.openedProject" class="h-full">
+                        <div v-if="$store.state.openedFile" class="h-full">
+                            <FileEditor/>
+                        </div>
+                        <div v-else class="h-full">
                             <RepositoryTreeCommit/>
                         </div>
                     </div>

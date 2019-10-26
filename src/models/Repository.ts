@@ -2,6 +2,7 @@ const Git: any = require('simple-git/promise');
 
 export default class Repository {
 
+    public remoteURL: string;
     public repoPath: string;
     public remotes: string[] = [];
     public branchLocal: any[] = [];
@@ -41,7 +42,10 @@ export default class Repository {
 
     public loadBranches(): void {
         // get local branches
-        Git(this.repoPath).branch([], (data: any) => {
+        const request: any = async (msg: string) => {
+            return await Git(this.repoPath).branch([]);
+        };
+        request().then((data: any) => {
             this.branchLocal.splice(0, this.branchLocal.length);
             data.all.forEach((name: string) => {
                 this.branchLocal.push(data.branches[name]);
@@ -49,7 +53,10 @@ export default class Repository {
         });
 
         // get remote branches
-        Git(this.repoPath).branch(['--remotes'], (data: any) => {
+        const requestRem: any = async (msg: string) => {
+            return await Git(this.repoPath).branch(['--remotes']);
+        };
+        requestRem().then((data: any) => {
             this.branchRemote.splice(0, this.branchRemote.length);
             data.all.forEach((name: string) => {
                 this.branchRemote.push(data.branches[name]);
@@ -58,7 +65,10 @@ export default class Repository {
     }
 
     public loadTags(): void {
-        Git(this.repoPath).tags([], (data: any) => {
+        const request: any = async (msg: string) => {
+            return await Git(this.repoPath).tags([]);
+        };
+        request().then((data: any) => {
             this.tags.splice(0, this.tags.length);
             data.all.forEach((name: string) => {
                 this.tags.push(name);
@@ -67,7 +77,10 @@ export default class Repository {
     }
 
     public loadRemotes(): void {
-        Git(this.repoPath).getRemotes(true, (data: any) => {
+        const request: any = async (msg: string) => {
+            return await Git(this.repoPath).getRemotes(true);
+        };
+        request().then((data: any) => {
             data.forEach((r: any) => this.remotes.push(r.name));
         });
     }
@@ -92,6 +105,12 @@ export default class Repository {
                     });
                 }
             });
+        });
+        const request: any = async () => {
+            return await Git(this.repoPath).listRemote(['--get-url']);
+        };
+        request().then((data: any) => {
+            this.remoteURL = data;
         });
     }
 
@@ -133,10 +152,17 @@ export default class Repository {
 
     public push(): void {
         if (this.branchRemoteTracking) {
-            const rpb = this.branchRemoteTracking.split('/');
-            Git(this.repoPath).push(rpb[0], rpb[1], (data: any) => {
+            this.clone('pedroladeira', '167Pedr349');
+            /*const rpb = this.branchRemoteTracking.split('/');
+            const request: any = async (remote: string, branch: string) => {
+                return await Git(this.repoPath).push([remote, branch]);
+            };
+            request(rpb[0], rpb[1]).then((data: any) => {
+                console.log('data')
                 this.refresh();
-            });
+            }).catch(() => {
+                console.error('error');
+            });*/
         }
     }
 
@@ -158,6 +184,24 @@ export default class Repository {
     public createLocalBranch(name: string): void {
         Git(this.repoPath).raw(['branch', name], (data: any) => {
             this.refresh();
+        });
+    }
+
+    public clone(username: string, password: string): void {
+        const USER = username;
+        const PASS = password;
+        const REPO = this.remoteURL.replace('https://', '')
+            .replace('http://', '')
+            .replace('.git', '');
+        const remote = `https://${USER}:${PASS}@${REPO}`;
+        const request: any = async (remote: string) => {
+            return await Git(this.repoPath).clone(remote);
+        };
+        request(remote).then((data: any) => {
+            console.log('data', data);
+            this.refresh();
+        }).catch((err: any) => {
+            console.log(err);
         });
     }
 

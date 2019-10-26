@@ -11,6 +11,7 @@ export default new Vuex.Store({
         projects: [] as Project[],
         openedProject: null,
         menuIndex: 0 as number,
+        openedFile: null,
     },
     mutations: {
         loadProjects(state: any): void {

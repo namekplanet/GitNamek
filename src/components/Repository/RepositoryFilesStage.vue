@@ -14,6 +14,7 @@
                 <ul class="w-full cursor-pointer">
                     <li v-for="(f,i) in selectedProject.getRepo().unstagedFiles"
                         @mouseover="visibleLine='u'+i" @mouseleave="visibleLine=''"
+                        @click="openFile(f)"
                         class="border-b border-gray-800 relative"
                         :class="{'bg-gray-100': visibleLine==='u'+i}">
                         <span class="text-white p-1 text-xs"
@@ -125,6 +126,10 @@ export default class RepositoryFilesStage extends Vue {
             bgColor = 'bg-red-700';
         }
         return { label, bgColor };
+    }
+
+    public openFile(file: any): void {
+        this.$store.state.openedFile = file;
     }
 
 }

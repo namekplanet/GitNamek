@@ -11,6 +11,7 @@ import RepositorySideBar from '@/components/Repository/RepositorySideBar.vue';
 import RepositoryFilesStage from '@/components/Repository/RepositoryFilesStage.vue';
 import RepositoryTopBar from '@/components/Repository/RepositoryTopBar.vue';
 import RepositoryTreeCommit from '@/components/Repository/RepositoryTreeCommit.vue';
+import FileEditor from '@/components/Editors/FileEditor.vue';
 
 
 Vue.component('Button', Button);
@@ -22,3 +23,4 @@ Vue.component('RepositorySideBar', RepositorySideBar);
 Vue.component('RepositoryFilesStage', RepositoryFilesStage);
 Vue.component('RepositoryTopBar', RepositoryTopBar);
 Vue.component('RepositoryTreeCommit', RepositoryTreeCommit);
+Vue.component('FileEditor', FileEditor);
