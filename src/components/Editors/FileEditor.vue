@@ -9,7 +9,8 @@
             </div>
         </div>
         <div class="editable-container h-full overflow-y-scroll" contenteditable="false">
-            <div v-for="(l,i) in fileContent" :key="i" v-text="l" >
+            <div v-for="(l,i) in fileContent" :key="i" >
+                <pre v-text="l"></pre>
             </div>
         </div>
     </div>
