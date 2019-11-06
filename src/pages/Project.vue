@@ -1,7 +1,8 @@
 <template>
     <div class="absolute inset-0">
         <div class="relative h-full">
-            <div class="absolute mb-12 inset-0">
+            <!-- <div class="absolute mb-12 inset-0"> -->
+            <div class="absolute inset-0">
                 <div class="flex h-full">
                     <div class="w-64 h-full">
                         <div v-if="$store.state.openedProject" class="h-full">
@@ -29,9 +30,9 @@
                     </div>
                 </div>
             </div>
-            <div class="h-14 p-3 border-b absolute bottom-0 inset-x-0 shadow">
+            <!-- <div class="h-14 p-3 border-b absolute bottom-0 inset-x-0 shadow">
                 Status Bar
-            </div>
+            </div> -->
         </div>
     </div>
 </template>

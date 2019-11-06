@@ -84,10 +84,10 @@
                 </div>
                 <div>
                     <div class="h-32">
-                        <textarea class="p-1 w-full h-full bg-gray-700 font-bold" placeholder="Message:"
+                        <textarea class="p-1 w-full h-full bg-white font-bold" placeholder="Message:"
                             v-model="commitMessage"></textarea>
                     </div>
-                    <div class="p-3">
+                    <div class="mt-1">
                         <Button class="w-full py-3"
                             :disabled="commitMessage===''"
                             @click="commit()">Commit</Button>
