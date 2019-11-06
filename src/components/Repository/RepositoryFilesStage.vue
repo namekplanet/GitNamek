@@ -1,8 +1,8 @@
 <template>
     <div class="h-full relative"
          v-if="selectedProject.getRepo()">
-         <div>
-            <div class="flex bg-gray-800 p-1 border-b border-gray-600">
+         <div class="rounded bg-gray-200 p-1 mx-1">
+            <div class="flex p-1 border-b border-gray-300">
                 <div class="flex-1">
                     <span class="font-bold">Unstaged Files</span>
                 </div>
@@ -10,11 +10,11 @@
                     <Button color="success" @click="stageAll()">Stage all</Button>
                 </div>
             </div>
-            <div>
+            <div class="bg-white">
                 <ul class="w-full cursor-pointer">
                     <li v-for="(f,i) in selectedProject.getRepo().unstagedFiles"
                         @mouseover="visibleLine='u'+i" @mouseleave="visibleLine=''"
-                        class="flex border-b border-gray-800 relative"
+                        class="flex border-b border-gray-300 relative"
                         :class="{'bg-gray-100': visibleLine==='u'+i}">
                         <div>
                             <span class="text-white p-1 text-xs"
@@ -39,8 +39,8 @@
                 </ul>
             </div>
          </div>
-         <div>
-            <div class="flex bg-gray-800 p-1 border-b border-gray-600">
+         <div class="rounded bg-gray-200 p-1 m-1">
+            <div class="flex p-1 border-b border-gray-300">
                 <div class="flex-1">
                     <span class="font-bold">Staged Files</span>
                 </div>
@@ -48,11 +48,11 @@
                     <Button color="success" @click="unstageAll()">Unstage all</Button>
                 </div>
             </div>
-            <div>
+            <div class="bg-white">
                 <ul class="w-full cursor-pointer">
                     <li v-for="(f,i) in selectedProject.getRepo().stagedFiles"
                         @mouseover="visibleLine='s'+i" @mouseleave="visibleLine=''"
-                        class="flex border-b border-gray-800 relative"
+                        class="flex border-b border-gray-300 relative"
                         :class="{'bg-gray-100': visibleLine==='s'+i}">
                         <div>
                             <span class="text-white p-1 text-xs"
@@ -77,19 +77,21 @@
                 </ul>
             </div>
         </div>
-        <div class="absolute bottom-0 inset-x-0">
-            <div class="bg-gray-800 p-1">
-                <span class="font-bold">Commit Message</span>
-            </div>
-            <div>
-                <div class="h-32">
-                    <textarea class="p-1 w-full h-full bg-gray-700 font-bold" placeholder="Message:"
-                        v-model="commitMessage"></textarea>
+        <div class="absolute bottom-0 inset-x-0 ">
+            <div class="rounded bg-gray-200 p-1 m-1">
+                <div class="flex p-1 border-b border-gray-300">
+                    <span class="font-bold">Commit Message</span>
                 </div>
-                <div class="p-3">
-                    <Button class="w-full py-3"
-                        :disabled="commitMessage===''"
-                        @click="commit()">Commit</Button>
+                <div>
+                    <div class="h-32">
+                        <textarea class="p-1 w-full h-full bg-gray-700 font-bold" placeholder="Message:"
+                            v-model="commitMessage"></textarea>
+                    </div>
+                    <div class="p-3">
+                        <Button class="w-full py-3"
+                            :disabled="commitMessage===''"
+                            @click="commit()">Commit</Button>
+                    </div>
                 </div>
             </div>
         </div>

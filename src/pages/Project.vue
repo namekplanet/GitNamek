@@ -12,13 +12,13 @@
                         <div v-if="$store.state.openedFile" class="h-full">
                             <FileEditor/>
                         </div>
-                        <div v-else class="h-full overflow-y-scroll">
+                        <div v-else class="h-full overflow-y-scroll px-1">
                             <RepositoryTreeCommit/>
                         </div>
                     </div>
                     <div style="min-width:400px;" :class="{'w-full': toggleFullSidebar}">
                         <div class="flex h-full">
-                            <div class="bg-blue-900 h-full p-1 cursor-pointer"
+                            <div class="bg-gray-300 h-full p-1 cursor-pointer rounded"
                                 @click="toggleFullSidebar=!toggleFullSidebar">
                                     {{ toggleFullSidebar ? '>' : '<'}}
                                 </div>

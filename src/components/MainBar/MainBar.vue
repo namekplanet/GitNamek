@@ -1,35 +1,33 @@
 <template>
-    <div class="flex bg-gray-700 h-10">
+    <div class="flex h-10">
         <div class="flex-1 h-full">
             <div class="flex content-center flex-wrap h-full">
                 <div class="flex-1">
-                    <ul class="ml-5">
+                    <ul class="ml-3 text-gray-800">
                         <li class="float-left">
                             <router-link to="/">
-                                <div class="p-1 px-4 border border-gray-500 text-white bolder rounded-l"
-                                    :class="{'bg-gray-500': getSelectedMenuIndex===0}"
+                                <div class="p-1 px-4 border border-gray-900 bolder rounded-l shadow"
+                                    :class="{'bg-blue-800 text-gray-200': getSelectedMenuIndex===0}"
                                     @click="$store.state.menuIndex=0">
-                                    <span>Home</span>
+                                    <i class="fas fa-home"></i>
+                                    <span class="ml-2 font-bold">Home</span>
                                 </div>
                             </router-link>
                         </li>
-                        <li class="float-left" v-if="$store.state.openedProject">
-                            <router-link to="/project">
-                                <div class="p-1 px-4 border border-gray-500 text-white bolder rounded-r"
-                                    :class="{'bg-gray-500': getSelectedMenuIndex===1}"
+                        <li class="float-left">
+                            <router-link to="/project" v-if="$store.state.openedProject">
+                                <div class="p-1 px-4 border border-gray-900 bolder rounded-r shadow"
+                                    :class="{'bg-blue-800 text-gray-200': getSelectedMenuIndex===1}"
                                     @click="$store.state.menuIndex=1">
-                                    <span>Project</span>
+                                    <i class="fas fa-toolbox"></i>
+                                    <span class="ml-2 font-bold">Project</span>
                                 </div>
                             </router-link>
-                        </li>
-                        <li class="float-left" v-if="isDevelopment">
-                            <router-link to="/styles">
-                                <div class="p-1 px-4 border border-red-500 text-white bolder rounded-r"
-                                    :class="{'bg-gray-500': getSelectedMenuIndex===2}"
-                                    @click="$store.state.menuIndex=2">
-                                    <span>Styles</span>
+                            <div v-else>
+                                <div class="p-1 px-4 border border-gray-500 bolder rounded-r text-gray-500">
+                                    <span class="ml-2 font-bold">Project</span>
                                 </div>
-                            </router-link>
+                            </div>
                         </li>
                     </ul>
                 </div>

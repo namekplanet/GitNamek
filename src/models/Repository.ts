@@ -2,7 +2,7 @@ const Git: any = require('simple-git/promise');
 
 export default class Repository {
 
-    public remoteURL: string;
+    public remoteURL: string = '';
     public repoPath: string;
     public remotes: string[] = [];
     public branchLocal: any[] = [];
@@ -152,17 +152,13 @@ export default class Repository {
 
     public push(): void {
         if (this.branchRemoteTracking) {
-            this.clone('pedroladeira', '167Pedr349');
-            /*const rpb = this.branchRemoteTracking.split('/');
+            const rpb = this.branchRemoteTracking.split('/');
             const request: any = async (remote: string, branch: string) => {
                 return await Git(this.repoPath).push([remote, branch]);
             };
             request(rpb[0], rpb[1]).then((data: any) => {
-                console.log('data')
                 this.refresh();
-            }).catch(() => {
-                console.error('error');
-            });*/
+            });
         }
     }
 
@@ -206,14 +202,11 @@ export default class Repository {
             .replace('http://', '')
             .replace('.git', '');
         const remote = `https://${USER}:${PASS}@${REPO}`;
-        const request: any = async (remote: string) => {
-            return await Git(this.repoPath).clone(remote);
+        const request: any = async (remoteUri: string) => {
+            return await Git(this.repoPath).clone(remoteUri);
         };
         request(remote).then((data: any) => {
-            console.log('data', data);
             this.refresh();
-        }).catch((err: any) => {
-            console.log(err);
         });
     }
 

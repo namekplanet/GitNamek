@@ -1,5 +1,5 @@
 <template>
-    <button class="p-1 px-2 rounded"
+    <button class="p-1 px-2 rounded border border-gray-900 shadow-md font-bold"
         :class="getStyleClass"
         @click="onClick()">
         <slot/>
