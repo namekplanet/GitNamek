@@ -1,8 +1,8 @@
 <template>
     <div class="h-full relative"
          v-if="selectedProject.getRepo()">
-         <div>
-            <div class="flex bg-gray-800 p-1 border-b border-gray-600">
+         <div class="rounded bg-gray-200 p-1 mx-1">
+            <div class="flex p-1 border-b border-gray-300">
                 <div class="flex-1">
                     <span class="font-bold">Unstaged Files</span>
                 </div>
@@ -10,28 +10,37 @@
                     <Button color="success" @click="stageAll()">Stage all</Button>
                 </div>
             </div>
-            <div>
+            <div class="bg-white">
                 <ul class="w-full cursor-pointer">
                     <li v-for="(f,i) in selectedProject.getRepo().unstagedFiles"
                         @mouseover="visibleLine='u'+i" @mouseleave="visibleLine=''"
-                        @click="openFile(f)"
-                        class="border-b border-gray-800 relative"
+                        class="flex border-b border-gray-300 relative"
                         :class="{'bg-gray-100': visibleLine==='u'+i}">
-                        <span class="text-white p-1 text-xs"
+                        <div>
+                            <span class="text-white p-1 text-xs"
                             :class="getFileIcon(f).bgColor">
                             {{ getFileIcon(f).label }}
                         </span>
-                        <span class="ml-1 text-sm">{{ f.path }}</span>
-                        <button v-show="visibleLine==='u'+i"
-                            @click="stageFile(f)"
-                            class="px-2 text-xs absolute top-0 bottom-0 right-0 text-white bg-green-500 font-bold"
-                            >Stage</button>
+                        </div>
+                        <div class="flex-1">
+                            <span class="ml-1 text-sm"
+                                @click="openFile(f)">
+                                {{ f.path }}
+                            </span>
+                        </div>
+                        <div class="absolute right-0 top-0 bottom-0" v-show="visibleLine==='u'+i">
+                            <button
+                                @click="stageFile(f)"
+                                class="px-2 text-xs text-white bg-green-500 font-bold">
+                                Stage
+                            </button>
+                        </div>
                     </li>
                 </ul>
             </div>
          </div>
-         <div>
-            <div class="flex bg-gray-800 p-1 border-b border-gray-600">
+         <div class="rounded bg-gray-200 p-1 m-1">
+            <div class="flex p-1 border-b border-gray-300">
                 <div class="flex-1">
                     <span class="font-bold">Staged Files</span>
                 </div>
@@ -39,37 +48,50 @@
                     <Button color="success" @click="unstageAll()">Unstage all</Button>
                 </div>
             </div>
-            <div>
+            <div class="bg-white">
                 <ul class="w-full cursor-pointer">
                     <li v-for="(f,i) in selectedProject.getRepo().stagedFiles"
                         @mouseover="visibleLine='s'+i" @mouseleave="visibleLine=''"
-                        class="border-b border-gray-800 relative"
+                        class="flex border-b border-gray-300 relative"
                         :class="{'bg-gray-100': visibleLine==='s'+i}">
-                        <span class="text-white p-1 text-xs"
+                        <div>
+                            <span class="text-white p-1 text-xs"
                             :class="getFileIcon(f).bgColor">
                             {{ getFileIcon(f).label }}
                         </span>
-                        <span class="ml-1 text-sm">{{ f.path }}</span>
-                        <button v-show="visibleLine==='s'+i"
-                            @click="unstageFile(f)"
-                            class="px-2 text-xs absolute top-0 bottom-0 right-0 text-white bg-orange-500 font-bold">Untage</button>
+                        </div>
+                        <div class="flex-1">
+                            <span class="ml-1 text-sm"
+                                @click="openFile(f)">
+                                {{ f.path }}
+                            </span>
+                        </div>
+                        <div class="absolute right-0 top-0 bottom-0" v-show="visibleLine==='s'+i">
+                            <button
+                                @click="unstageFile(f)"
+                                class="px-2 text-xs text-white bg-orange-500 font-bold">
+                                Unstage
+                            </button>
+                        </div>
                     </li>
                 </ul>
             </div>
         </div>
-        <div class="absolute bottom-0 inset-x-0">
-            <div class="bg-gray-800 p-1">
-                <span class="font-bold">Commit Message</span>
-            </div>
-            <div>
-                <div class="h-32">
-                    <textarea class="p-1 w-full h-full bg-gray-700 font-bold" placeholder="Message:"
-                        v-model="commitMessage"></textarea>
+        <div class="absolute bottom-0 inset-x-0 ">
+            <div class="rounded bg-gray-200 p-1 m-1">
+                <div class="flex p-1 border-b border-gray-300">
+                    <span class="font-bold">Commit Message</span>
                 </div>
-                <div class="p-3">
-                    <Button class="w-full py-3"
-                        :disabled="commitMessage===''"
-                        @click="commit()">Commit</Button>
+                <div>
+                    <div class="h-32">
+                        <textarea class="p-1 w-full h-full bg-white font-bold" placeholder="Message:"
+                            v-model="commitMessage"></textarea>
+                    </div>
+                    <div class="mt-1">
+                        <Button class="w-full py-3"
+                            :disabled="commitMessage===''"
+                            @click="commit()">Commit</Button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -111,7 +133,12 @@ export default class RepositoryFilesStage extends Vue {
     }
 
     public commit(): void {
-        this.selectedProject.getRepo().commit(this.commitMessage);
+        const request = async () => {
+            return await this.selectedProject.getRepo().commit(this.commitMessage);
+        };
+        request().then(() => {
+            this.commitMessage = '';
+        });
     }
 
     public getFileIcon(file: any): any {

@@ -9,7 +9,8 @@
             </div>
         </div>
         <div class="editable-container h-full overflow-y-scroll" contenteditable="false">
-            <div v-for="(l,i) in fileContent" :key="i" v-text="l" >
+            <div v-for="(l,i) in fileContent" :key="i" >
+                <pre v-text="l"></pre>
             </div>
         </div>
     </div>
@@ -29,7 +30,7 @@ export default class FileEditor extends Vue {
         if (this.$store.state.openedFile) {
             return this.$store.state.openedFile.path;
         }
-        return null;
+        return '';
     }
 
     public mounted(): void {
@@ -38,13 +39,16 @@ export default class FileEditor extends Vue {
 
     @Watch('getFilePath')
     public readLocalFile(): void {
+        if (!this.getFilePath) {
+            return;
+        }
         this.fileContent.splice(0, this.fileContent.length);
         const readInterface = readline.createInterface({
             input: fs.createReadStream(this.getFilePath),
             output: process.stdout,
-            console: false
+            console: false,
         });
-        readInterface.on('line', (line) => {
+        readInterface.on('line', (line: any) => {
             this.fileContent.push(line);
         });
     }

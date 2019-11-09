@@ -2,7 +2,7 @@ const Git: any = require('simple-git/promise');
 
 export default class Repository {
 
-    public remoteURL: string;
+    public remoteURL: string = '';
     public repoPath: string;
     public remotes: string[] = [];
     public branchLocal: any[] = [];
@@ -152,17 +152,13 @@ export default class Repository {
 
     public push(): void {
         if (this.branchRemoteTracking) {
-            this.clone('pedroladeira', '167Pedr349');
-            /*const rpb = this.branchRemoteTracking.split('/');
+            const rpb = this.branchRemoteTracking.split('/');
             const request: any = async (remote: string, branch: string) => {
                 return await Git(this.repoPath).push([remote, branch]);
             };
             request(rpb[0], rpb[1]).then((data: any) => {
-                console.log('data')
                 this.refresh();
-            }).catch(() => {
-                console.error('error');
-            });*/
+            });
         }
     }
 
@@ -190,21 +186,12 @@ export default class Repository {
         });
     }
 
-    public clone(username: string, password: string): void {
-        const USER = username;
-        const PASS = password;
-        const REPO = this.remoteURL.replace('https://', '')
-            .replace('http://', '')
-            .replace('.git', '');
-        const remote = `https://${USER}:${PASS}@${REPO}`;
-        const request: any = async (remote: string) => {
-            return await Git(this.repoPath).clone(remote);
+    public selectLocalBranch(branchName: string): void {
+        const request: any = async (bname: string) => {
+            return await Git(this.repoPath).checkoutLocalBranch(bname);
         };
-        request(remote).then((data: any) => {
-            console.log('data', data);
+        request(branchName).then((data: any) => {
             this.refresh();
-        }).catch((err: any) => {
-            console.log(err);
         });
     }
 

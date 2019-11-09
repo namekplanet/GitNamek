@@ -1,8 +1,8 @@
 <template>
     <div class="relative group">
         <div class="flex items-center cursor-pointer py-1">
-            <button class="hover:bg-blue-800 px-1 text-white"
-                :class="{'bg-blue-800':isVisible}"
+            <button class="border border-gray-800 w-6 h-6 text-gray-800 font-bold shadow rounded"
+                :class="{'bg-gray-300':isVisible}"
                 @click="toggleDropdown()">
                 <span>{{ label }}</span>
             </button>

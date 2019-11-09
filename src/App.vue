@@ -1,5 +1,5 @@
 <template>
-    <div id="app" class="absolute inset-0 overflow-hidden bg-gray-900 text-gray-500 text-sm font-bolder">
+    <div id="app" class="absolute inset-0 overflow-hidden bg-white text-gray-900 text-sm font-bolder">
         <div>
             <MainBar/>
         </div>

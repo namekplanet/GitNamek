@@ -6,24 +6,30 @@
                 </Button>
             </div>
 
-            <div>
-                <span>List of projects</span>
-                <div>
-                    <ul>
-                        <li v-for="(p,i) in projectsList" :key="i">
-                            <div class="bg-gray-700 cursor-pointer p-2">
-                                <div class="flex">
-                                    <div class="flex-1 cursor-pointer"
-                                        @click="onpenGitRepository(p)">
-                                        <span>{{ p.name }}</span>
-                                    </div>
-                                    <div>
-                                        <button @click="removeLocalRepository(p)">Close</button>
+            <div class="flex">
+                <div class="w-1/3">
+                    <span class="text-gray-800 font-bold">List of projects</span>
+                    <div>
+                        <ul>
+                            <li v-for="(p,i) in projectsList" :key="i"
+                                class="mb-1">
+                                <div class="bg-gray-300 rounded cursor-pointer p-2">
+                                    <div class="flex">
+                                        <div class="flex-1 cursor-pointer"
+                                            @click="onpenGitRepository(p)">
+                                            <span class="font-bold text-gray-800">{{ p.name }}</span>
+                                        </div>
+                                        <div>
+                                            <button @click="removeLocalRepository(p)">Remove</button>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </li>
-                    </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="w-1/2 px-2">
+                    <RepositoryClone />
                 </div>
             </div>
         </div>

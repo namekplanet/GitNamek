@@ -4,15 +4,17 @@
             <div v-for="(l,i) in selectedProject.getRepo().logs" :key="i"
                 class="flex flex-wrap" >
                 <div class="w-32">
-                    <div v-if="isRemoteHEAD(l)" class="bg-green-900 p-1">
-                        <span>{{ 'REMOTE' }}</span>
+                    <div v-if="isRemoteHEAD(l)" class="bg-green-600 rounded shadow p-1">
+                        <span class="text-gray-100 font-bold">{{ 'REMOTE' }}</span>
                     </div>
-                    <div v-if="isLocalHEAD(l)&&!isRemoteHEAD(l)" class="bg-green-900 p-1">
-                        <span>{{ 'LOCAL' }}</span>
+                    <div v-if="isLocalHEAD(l)&&!isRemoteHEAD(l)" class="bg-orange-600 rounded shadow p-1">
+                        <span class="text-gray-100 font-bold">{{ 'LOCAL' }}</span>
                     </div>
                 </div>
-                <div class="flex-1">
-                    <div class="p-1 cursor-pointer hover:bg-gray-800">{{ l.message }}</div>
+                <div class="flex-1 ml-2">
+                    <div class="p-1 cursor-pointer rounded hover:bg-gray-300 hover:shadow">
+                        <span class="text-gray-900">{{ l.message }}</span>
+                    </div>
                 </div>
             </div>
         </div>
