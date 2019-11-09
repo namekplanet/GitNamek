@@ -21,12 +21,18 @@ export default class Button extends Vue {
             return this.getInfo();
         } else if (this.color === 'warning') {
             return this.getWarning();
+        } else if (this.color === 'secondary') {
+            return this.getSecondary();
         }
         return this.getPrimary();
     }
 
     public getPrimary(): string {
         return 'bg-blue-800 text-gray-100';
+    }
+
+    public getSecondary(): string {
+        return 'bg-gray-800 text-gray-100';
     }
 
     public getSuccess(): string {
