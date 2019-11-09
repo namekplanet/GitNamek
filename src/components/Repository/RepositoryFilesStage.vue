@@ -3,14 +3,14 @@
          v-if="selectedProject.getRepo()">
          <div class="rounded bg-gray-200 p-1 mx-1">
             <div class="flex p-1 border-b border-gray-300">
-                <div class="flex-1">
+                <div class="flex-1 pt-1">
                     <span class="font-bold">Unstaged Files</span>
                 </div>
                 <div class="flex-initial text-right">
                     <Button color="secondary" @click="stageAll()" class="text-xs">Stage all</Button>
                 </div>
             </div>
-            <div class="bg-white h-32 overflow-scroll">
+            <div class="bg-white h-40 overflow-scroll">
                 <ul class="w-full cursor-pointer">
                     <li v-for="(f,i) in selectedProject.getRepo().unstagedFiles"
                         @mouseover="visibleLine='u'+i" @mouseleave="visibleLine=''"
@@ -24,7 +24,7 @@
                                 </span>
                             </div>
                         </div>
-                        <div class="absolute inset-y-0 py-1 px-1"
+                        <div class="absolute inset-y-0 py-1 px-1 rounded"
                             :class="getFileIcon(f).bgColor">
                             <span class="text-white p-1 text-xs">
                                 {{ getFileIcon(f).label }}
@@ -44,14 +44,14 @@
          </div>
          <div class="rounded bg-gray-200 p-1 m-1">
             <div class="flex p-1 border-b border-gray-300">
-                <div class="flex-1">
+                <div class="flex-1 pt-1">
                     <span class="font-bold">Staged Files</span>
                 </div>
                 <div class="flex-initial text-right">
                     <Button color="secondary" @click="unstageAll()" class="text-xs">Unstage all</Button>
                 </div>
             </div>
-            <div class="bg-white h-32 overflow-scroll">
+            <div class="bg-white h-40 overflow-scroll">
                 <ul class="w-full cursor-pointer">
                     <li v-for="(f,i) in selectedProject.getRepo().stagedFiles"
                         @mouseover="visibleLine='s'+i" @mouseleave="visibleLine=''"
@@ -65,7 +65,7 @@
                                 </span>
                             </div>
                         </div>
-                        <div class="absolute inset-y-0 py-1 px-1"
+                        <div class="absolute inset-y-0 py-1 px-1 rounded"
                             :class="getFileIcon(f).bgColor">
                             <span class="text-white p-1 text-xs">
                                 {{ getFileIcon(f).label }}
