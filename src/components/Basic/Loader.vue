@@ -22,8 +22,9 @@ export default class Loader extends Vue {
     }
 
     public destroyed(): void {
-        if (this.inverval)
+        if (this.inverval) {
             clearInterval(this.inverval);
+        }
     }
 
 }

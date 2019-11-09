@@ -45,8 +45,8 @@ const Git: any = require('simple-git/promise');
 @Component
 export default class RepositoryTopBar extends Vue {
 
-    private cloneURL: string = 'https://github.com/editor-js/code.git';
-    private cloneDestination: string = '/usr/local/var/www/teste';
+    private cloneURL: string = '';
+    private cloneDestination: string = '';
     private cloneName: string = '';
     private showLoader: boolean = false;
 
@@ -78,7 +78,7 @@ export default class RepositoryTopBar extends Vue {
         remote.dialog.showOpenDialog({ properties: ['openDirectory'] }).then((result: any) => {
             if (!result.canceled && result.filePaths[0]) {
                 const path: string = result.filePaths[0];
-                if (this.cloneName != '') {
+                if (this.cloneName !== '') {
                     this.cloneDestination = path/* + '/' + this.cloneName*/;
                 } else {
                     this.cloneDestination = path;
