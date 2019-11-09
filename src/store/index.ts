@@ -12,6 +12,7 @@ export default new Vuex.Store({
         openedProject: null,
         menuIndex: 0 as number,
         openedFile: null,
+        mainBarComponent: null,
     },
     mutations: {
         loadProjects(state: any): void {

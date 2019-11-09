@@ -39,6 +39,7 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
+import RepositoryTopBar from '@/components/Repository/RepositoryTopBar.vue';
 
 @Component
 export default class Project extends Vue {
@@ -48,7 +49,13 @@ export default class Project extends Vue {
     public mounted(): void {
         if (!this.$store.state.openedProject) {
             this.$router.push('/');
+            return;
         }
+        this.$store.state.mainBarComponent = RepositoryTopBar;
+    }
+
+    public destroyed(): void {
+        this.$store.state.mainBarComponent = null;
     }
 }
 </script>
