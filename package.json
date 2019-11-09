@@ -1,6 +1,8 @@
 {
-  "name": "jupiterone",
+  "name": "JupiterOne",
+  "description": "A Git Client",
   "version": "0.1.0",
+  "author": "Pedro Ladeira",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",

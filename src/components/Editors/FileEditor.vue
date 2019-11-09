@@ -1,8 +1,8 @@
 <template>
     <div class="h-full" v-if="getFilePath">
-        <div class="flex items-center h-8 bg-gray-800 px-2">
+        <div class="flex items-center h-8 bg-gray-200 rounded px-2">
             <div class="flex-1">
-                {{ getFilePath }}
+                <span class="font-bold">{{ getFilePath }}</span>
             </div>
             <div class="">
                 <button @click="closeFile">Close</button>
@@ -10,7 +10,7 @@
         </div>
         <div class="editable-container h-full overflow-y-scroll" contenteditable="false">
             <div v-for="(l,i) in fileContent" :key="i" >
-                <pre v-text="l"></pre>
+                <pre class="border-b border-gray-200 text-xs" v-text="l"></pre>
             </div>
         </div>
     </div>
