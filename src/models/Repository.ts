@@ -195,21 +195,6 @@ export default class Repository {
         });
     }
 
-    public clone(username: string, password: string): void {
-        const USER = username;
-        const PASS = password;
-        const REPO = this.remoteURL.replace('https://', '')
-            .replace('http://', '')
-            .replace('.git', '');
-        const remote = `https://${USER}:${PASS}@${REPO}`;
-        const request: any = async (remoteUri: string) => {
-            return await Git(this.repoPath).clone(remoteUri);
-        };
-        request(remote).then((data: any) => {
-            this.refresh();
-        });
-    }
-
     private async _raw(data: any) {
         return await Git(this.repoPath).raw(data);
     }

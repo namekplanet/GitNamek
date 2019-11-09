@@ -5,7 +5,7 @@
                 <div class="flex-1 pl-3">
                     <Button @click="$router.push('/')">
                         <i class="fas fa-home"></i>
-                        <span class="ml-2 font-bold">Home</span>
+                        <span class="ml-2">Home</span>
                     </Button>
                 </div>
             </div>
