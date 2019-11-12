@@ -10,7 +10,7 @@
                     </div>
                     <div class="flex-1 h-full">
                         <div class="h-full p-3">
-                            <FileEditor />
+                            <FileEditor path=".git/config" :closable="false" :editable="true" />
                         </div>
                     </div>
                 </div>

@@ -1,5 +1,5 @@
 <template>
-    <div class="h-full" v-if="getFilePath">
+    <div class="flex flex-col h-full" v-if="getFilePath">
         <div class="flex items-center h-8 bg-gray-200 rounded px-2">
             <div class="flex-1">
                 <span class="font-bold">{{ getFilePath }}</span>
@@ -9,10 +9,18 @@
                 <button @click="closeFile">Close</button>
             </div>
         </div>
-        <div class="editable-container h-full overflow-y-scroll" contenteditable="false">
+        <div class="editable-container h-full overflow-y-scroll">
             <div v-for="(l,i) in fileContent" :key="i" >
-                <pre class="border-b border-gray-200 text-xs" v-text="l"></pre>
+                <pre class="border-b border-gray-200 text-xs" v-text="l"
+                    :contenteditable="editable"
+                    @input="onChangeLine($event, i)"></pre>
             </div>
+        </div>
+        <div class="text-right" v-if="editable">
+            <Button color="success" @click="onSave">
+                <i class="fas fa-save"></i>
+                <span class="ml-2">Save</span>
+            </Button>
         </div>
     </div>
 </template>
@@ -26,6 +34,7 @@ import * as fs from 'fs';
 export default class FileEditor extends Vue {
 
     @Prop({ default: true }) public readonly closable!: boolean;
+    @Prop({ default: false }) public readonly editable!: boolean;
     @Prop({ default: '' }) public path!: string;
     public fileContent: string[] = [];
 
@@ -60,6 +69,27 @@ export default class FileEditor extends Vue {
 
     public closeFile(): void {
         this.$store.state.openedFile = null;
+    }
+
+    public onSave(): void {
+        fs.exists(this.getFilePath, (exists: boolean) => {
+            if (exists) {
+                var stream = fs.createWriteStream(this.getFilePath);
+                stream.once('open', (fd: any) => {
+                    for (var i = 0; i < this.fileContent.length; i++) {
+                        stream.write(this.fileContent[i]);
+                        if (i < this.fileContent.length) {
+                            stream.write('\n');
+                        }
+                    }
+                    stream.end();
+                });
+            }
+        });
+    }
+
+    public onChangeLine(evt: any, index: number): void {
+        this.fileContent[index] = evt.target.textContent;
     }
 }
 </script>
