@@ -11,9 +11,16 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
+import { app } from 'electron';
 
 @Component
-export default class App extends Vue {}
+export default class App extends Vue {
+
+    public mounted(): void {
+        //
+    }
+
+}
 </script>
 
 <style lang="scss">

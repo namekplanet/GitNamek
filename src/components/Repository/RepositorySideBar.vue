@@ -45,8 +45,8 @@
                 <ul class="bg-white">
                     <li v-for="(r,i) in selectedProject.getRepo().branchRemote">
                         <div class="flex">
-                            <div class="flex-1">
-                                {{ r.name }}
+                            <div class="flex-1 cursor-pointer hover:bg-gray-600 hover:text-white py-1 px-3">
+                                <span>{{ r.name }}</span>
                             </div>
                             <div class="">
                             </div>

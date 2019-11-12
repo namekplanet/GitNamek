@@ -4,7 +4,8 @@
             <div class="flex-1">
                 <span class="font-bold">{{ getFilePath }}</span>
             </div>
-            <div class="">
+            <div class=""
+                v-if="closable">
                 <button @click="closeFile">Close</button>
             </div>
         </div>
@@ -24,11 +25,15 @@ import * as fs from 'fs';
 @Component
 export default class FileEditor extends Vue {
 
+    @Prop({ default: true }) public readonly closable!: boolean;
+    @Prop({ default: '' }) public path!: string;
     public fileContent: string[] = [];
 
     get getFilePath(): string {
-        if (this.$store.state.openedFile) {
-            return this.$store.state.openedFile.path;
+        if (this.path) {
+            return this.path;
+        } else if (this.$store.state.openedFile) {
+            this.path = this.$store.state.openedFile.path;
         }
         return '';
     }

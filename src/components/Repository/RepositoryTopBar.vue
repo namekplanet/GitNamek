@@ -3,6 +3,11 @@
         <ul>
             <li class="float-left mr-1">
                 <Button color="info"
+                    @click="showProjectSettings()"
+                >Settings</Button>
+            </li>
+            <li class="float-left mr-1">
+                <Button color="info"
                     @click="refresh()"
                 >Refresh</Button>
             </li>
@@ -45,6 +50,10 @@ export default class RepositoryTopBar extends Vue {
 
     public refresh(): void {
         this.selectedProject.getRepo().refresh();
+    }
+
+    public showProjectSettings(): void {
+        this.$router.push('/project/settings');
     }
 
 }

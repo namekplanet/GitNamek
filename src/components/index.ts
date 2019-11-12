@@ -13,6 +13,7 @@ import RepositoryFilesStage from '@/components/Repository/RepositoryFilesStage.v
 import RepositoryTopBar from '@/components/Repository/RepositoryTopBar.vue';
 import RepositoryTreeCommit from '@/components/Repository/RepositoryTreeCommit.vue';
 import RepositoryClone from '@/components/Repository/RepositoryClone.vue';
+import SettingsSideBar from '@/components/Repository/Settings/SettingsSideBar.vue';
 import FileEditor from '@/components/Editors/FileEditor.vue';
 
 
@@ -27,4 +28,5 @@ Vue.component('RepositoryFilesStage', RepositoryFilesStage);
 Vue.component('RepositoryTopBar', RepositoryTopBar);
 Vue.component('RepositoryTreeCommit', RepositoryTreeCommit);
 Vue.component('RepositoryClone', RepositoryClone);
+Vue.component('SettingsSideBar', SettingsSideBar);
 Vue.component('FileEditor', FileEditor);

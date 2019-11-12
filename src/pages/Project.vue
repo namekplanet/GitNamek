@@ -1,7 +1,6 @@
 <template>
     <div class="absolute inset-0">
         <div class="relative h-full">
-            <!-- <div class="absolute mb-12 inset-0"> -->
             <div class="absolute inset-0">
                 <div class="flex h-full">
                     <div class="w-64 h-full">
