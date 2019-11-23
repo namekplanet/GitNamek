@@ -1,6 +1,6 @@
 <template>
     <div v-if="selectedProject">
-        <div>
+        <div class="">
             <div v-for="(l,i) in selectedProject.getRepo().logs" :key="i"
                 class="flex flex-wrap" >
                 <div class="w-32">
@@ -12,7 +12,7 @@
                     </div>
                 </div>
                 <div class="flex-1 ml-2">
-                    <div class="p-1 cursor-pointer rounded hover:bg-gray-300 hover:shadow">
+                    <div class="p-1 cursor-pointer rounded hover:bg-white hover:shadow">
                         <span class="text-gray-900">{{ l.message }}</span>
                     </div>
                 </div>

@@ -2,7 +2,7 @@
     <div class="h-full"
          v-if="selectedProject.getRepo()">
         <ul>
-        	<li class="bg-gray-200 rounded p-1 mx-1">
+        	<li class="bg-white rounded p-1 mx-1">
                 <div class="p-1">
                     <div class="flex">
                         <div class="flex-1">
@@ -15,7 +15,7 @@
                         </div>
                     </div>
                 </div>
-                <ul class="bg-white">
+                <ul class="bg-gray-200">
                     <li v-for="(r,i) in selectedProject.getRepo().branchLocal">
                         <div class="flex">
                             <div class="flex-1 cursor-pointer hover:bg-gray-600 hover:text-white py-1 px-3">
@@ -38,11 +38,11 @@
                     </li>
                 </ul>
             </li>
-            <li class="bg-gray-200 rounded p-1 m-1">
+            <li class="bg-white rounded p-1 m-1">
                 <div class="p-1">
                     <span class="font-bold">REMOTE</span>
                 </div>
-                <ul class="bg-white">
+                <ul class="bg-gray-200">
                     <li v-for="(r,i) in selectedProject.getRepo().branchRemote">
                         <div class="flex">
                             <div class="flex-1 cursor-pointer hover:bg-gray-600 hover:text-white py-1 px-3">
@@ -54,11 +54,11 @@
                     </li>
                 </ul>
             </li>
-            <li class="bg-gray-200 rounded p-1 m-1">
+            <li class="bg-white rounded p-1 m-1">
                 <div class="p-1">
                     <span class="font-bold">TAGS</span>
                 </div>
-                <ul class="bg-white">
+                <ul class="bg-gray-200">
                     <li v-for="(t,i) in selectedProject.getRepo().tags">{{ t }}</li>
                 </ul>
             </li>

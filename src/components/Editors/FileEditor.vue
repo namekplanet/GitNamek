@@ -9,7 +9,7 @@
                 <button @click="closeFile">Close</button>
             </div>
         </div>
-        <div class="editable-container h-full overflow-y-scroll">
+        <div class="editable-container h-full w-full overflow-scroll">
             <div v-for="(l,i) in fileContent" :key="i" >
                 <pre class="border-b border-gray-200 text-xs" v-text="l"
                     :contenteditable="editable"
@@ -74,9 +74,9 @@ export default class FileEditor extends Vue {
     public onSave(): void {
         fs.exists(this.getFilePath, (exists: boolean) => {
             if (exists) {
-                var stream = fs.createWriteStream(this.getFilePath);
+                const stream = fs.createWriteStream(this.getFilePath);
                 stream.once('open', (fd: any) => {
-                    for (var i = 0; i < this.fileContent.length; i++) {
+                    for (let i = 0; i < this.fileContent.length; i++) {
                         stream.write(this.fileContent[i]);
                         if (i < this.fileContent.length) {
                             stream.write('\n');

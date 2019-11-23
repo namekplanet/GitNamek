@@ -3,12 +3,12 @@ module.exports = {
     pluginOptions: {
         electronBuilder: {
             build: {
-                appId: 'pt.pedroladeira.jupiterone',
-                productName: 'JupiterOne',
+                appId: 'pt.pedroladeira.gitnamek',
+                productName: 'GitNamek',
             },
             builderOptions: {
                 dmg: {
-                    title: 'JupiterOne'
+                    title: 'GitNamek'
                 }
             }
         }

@@ -1,10 +1,17 @@
 <template>
     <div id="app" class="absolute inset-0 overflow-hidden bg-white text-gray-900 text-sm font-bolder">
-        <div>
-            <MainBar/>
-        </div>
-        <div class="absolute inset-0" style="top:40px;">
-            <router-view/>
+        <div class="flex h-full">
+            <div class="w-18 h-full">
+                <SideBar />
+            </div>
+            <div class="flex-1 bg-gray-200 relative">
+                <div>
+                    <MainBar/>
+                </div>
+                <div class="absolute inset-0" style="top:40px;">
+                    <router-view/>
+                </div>
+            </div>
         </div>
     </div>
 </template>

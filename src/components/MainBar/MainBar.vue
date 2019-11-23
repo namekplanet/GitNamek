@@ -1,17 +1,9 @@
 <template>
-    <div class="flex h-10">
+    <div class="flex h-10" v-if="$store.state.mainBarComponent">
         <div class="flex-1 h-full">
-            <div class="flex content-center flex-wrap h-full">
-                <div class="flex-1 pl-3">
-                    <Button @click="$router.push('/')">
-                        <i class="fas fa-home"></i>
-                        <span class="ml-2">Home</span>
-                    </Button>
-                </div>
-            </div>
         </div>
 
-        <div class="flex-1 h-full" v-if="$store.state.mainBarComponent">
+        <div class="flex-1 h-full">
             <div class="flex content-center flex-wrap h-full">
                 <div class="flex-1 mr-1">
                     <component v-bind:is="$store.state.mainBarComponent"></component>

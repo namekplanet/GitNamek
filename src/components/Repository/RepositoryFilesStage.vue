@@ -1,7 +1,7 @@
 <template>
     <div class="h-full relative"
          v-if="selectedProject.getRepo()">
-         <div class="rounded bg-gray-200 p-1 mx-1">
+         <div class="rounded bg-white p-1 mx-1">
             <div class="flex p-1 border-b border-gray-300">
                 <div class="flex-1 pt-1">
                     <span class="font-bold">Unstaged Files</span>
@@ -10,7 +10,7 @@
                     <Button color="secondary" @click="stageAll()" class="text-xs">Stage all</Button>
                 </div>
             </div>
-            <div class="bg-white h-40 overflow-scroll">
+            <div class="bg-gray-200 h-40 overflow-scroll">
                 <ul class="w-full cursor-pointer">
                     <li v-for="(f,i) in selectedProject.getRepo().unstagedFiles"
                         @mouseover="visibleLine='u'+i" @mouseleave="visibleLine=''"
@@ -42,7 +42,7 @@
                 </ul>
             </div>
          </div>
-         <div class="rounded bg-gray-200 p-1 m-1">
+         <div class="rounded bg-white p-1 m-1">
             <div class="flex p-1 border-b border-gray-300">
                 <div class="flex-1 pt-1">
                     <span class="font-bold">Staged Files</span>
@@ -51,7 +51,7 @@
                     <Button color="secondary" @click="unstageAll()" class="text-xs">Unstage all</Button>
                 </div>
             </div>
-            <div class="bg-white h-40 overflow-scroll">
+            <div class="bg-gray-200 h-40 overflow-scroll">
                 <ul class="w-full cursor-pointer">
                     <li v-for="(f,i) in selectedProject.getRepo().stagedFiles"
                         @mouseover="visibleLine='s'+i" @mouseleave="visibleLine=''"
@@ -84,8 +84,8 @@
             </div>
         </div>
         <div class="absolute bottom-0 inset-x-0 ">
-            <div class="rounded bg-gray-200 p-1 m-1">
-                <div class="flex p-1 border-b border-gray-300">
+            <div class="rounded bg-white p-1 m-1">
+                <div class="flex p-1 border-b border-gray-200">
                     <span class="font-bold">Commit Message</span>
                 </div>
                 <div>
