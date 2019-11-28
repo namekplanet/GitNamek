@@ -9,11 +9,15 @@
                 <button @click="closeFile">Close</button>
             </div>
         </div>
-        <div class="editable-container h-full w-full overflow-scroll">
-            <div v-for="(l,i) in fileContent" :key="i" >
-                <pre class="border-b border-gray-200 text-xs" v-text="l"
-                    :contenteditable="editable"
-                    @input="onChangeLine($event, i)"></pre>
+        <div class="relative bg-white h-full overflow-scroll mb-4">
+            <div class="absolute pin-x pin-y p-2">
+                <div class="editable-container h-full w-full">
+                    <div v-for="(l,i) in fileContent" :key="i" >
+                        <pre class="border-b border-gray-200 text-xs" v-text="l"
+                            :contenteditable="editable"
+                            @input="onChangeLine($event, i)"></pre>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="text-right" v-if="editable">

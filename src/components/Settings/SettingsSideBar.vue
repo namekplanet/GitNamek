@@ -6,7 +6,7 @@
                     <div class="flex">
                         <div class="flex-1 cursor-pointer"
                             @click="openRepositorySettings()">
-                            <span class="font-bold text-gray-800">Global Configs</span>
+                            <span class="font-bold text-gray-800 whitespace-no-wrap">Global Configs</span>
                         </div>
                     </div>
                 </div>

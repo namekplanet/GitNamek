@@ -151,15 +151,19 @@ export default class Repository {
     }
 
     public push(): void {
-        if (this.branchRemoteTracking) {
-            const rpb = this.branchRemoteTracking.split('/');
-            const request: any = async (remote: string, branch: string) => {
-                return await Git(this.repoPath).push([remote, branch]);
-            };
-            request(rpb[0], rpb[1]).then((data: any) => {
-                this.refresh();
-            });
-        }
+        this._raw(['config', 'credential.helper']).then((data: any) => {
+            console.log('data:', data);
+        });
+        return;
+        // if (this.branchRemoteTracking) {
+        //     const rpb = this.branchRemoteTracking.split('/');
+        //     const request: any = async (remote: string, branch: string) => {
+        //         return await Git(this.repoPath).push([remote, branch]);
+        //     };
+        //     request(rpb[0], rpb[1]).then((data: any) => {
+        //         this.refresh();
+        //     });
+        // }
     }
 
     public pull(): void {
