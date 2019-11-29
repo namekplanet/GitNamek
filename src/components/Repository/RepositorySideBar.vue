@@ -16,7 +16,7 @@
                     </div>
                 </div>
                 <ul class="bg-gray-200">
-                    <li v-for="(r,i) in selectedProject.getRepo().branchLocal">
+                    <li v-for="(r,i) in selectedProject.getRepo().branchLocal" :key="i">
                         <div class="flex">
                             <div class="flex-1 cursor-pointer hover:bg-gray-600 hover:text-white py-1 px-3">
                                 <span>{{ r.name }}</span>

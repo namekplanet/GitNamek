@@ -1,0 +1,42 @@
+import { Vue, Prop } from 'vue-property-decorator';
+
+export default class Base extends Vue {
+    
+    @Prop({ default: 'primary' }) protected readonly color!: string;
+    @Prop({ default: false }) protected readonly noMargin!: boolean;
+    @Prop({ default: false }) protected readonly hasError!: boolean;
+
+    protected get colorClasses(): string {
+        if (this.color === 'success') {
+            return this.getSuccess();
+        } else if (this.color === 'info') {
+            return this.getInfo();
+        } else if (this.color === 'warning') {
+            return this.getWarning();
+        } else if (this.color === 'secondary') {
+            return this.getSecondary();
+        }
+        return this.getPrimary();
+    }
+
+    private getPrimary(): string {
+        return 'bg-blue-800 text-gray-100';
+    }
+
+    private getSecondary(): string {
+        return 'bg-gray-800 text-gray-100';
+    }
+
+    private getSuccess(): string {
+        return 'bg-green-800 text-gray-100';
+    }
+
+    private getInfo(): string {
+        return 'bg-blue-500 text-gray-100';
+    }
+
+    private getWarning(): string {
+        return 'bg-yellow-600 text-gray-100';
+    }
+
+}

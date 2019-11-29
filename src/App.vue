@@ -1,5 +1,5 @@
 <template>
-    <div id="app" class="absolute inset-0 overflow-hidden bg-white text-gray-900 text-sm font-bolder">
+    <div id="app" class="absolute inset-0 overflow-hidden bg-white text-gray-900 text-xs font-bolder subpixel-antialiased">
         <div class="flex h-full">
             <div class="w-18 h-full">
                 <SideBar />

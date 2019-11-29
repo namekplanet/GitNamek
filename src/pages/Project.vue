@@ -39,6 +39,7 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import RepositoryTopBar from '@/components/Repository/RepositoryTopBar.vue';
+import RepositoryFloatSideBar from '@/components/Repository/RepositoryFloatSideBar.vue';
 
 @Component
 export default class Project extends Vue {

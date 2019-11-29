@@ -42,6 +42,20 @@
                 </router-link>
             </div>
         </div>
+        <div class="w-full">
+            <div class="m-1 rounded hover:bg-gray-200">
+                <router-link to="/styles">
+                    <div class="px-1 py-2 text-center">
+                        <div>
+                            <i class="fas fa-cog text-gray-600 text-lg"></i>
+                        </div>
+                        <div>
+                            <span class="bolder">Styles</span>
+                        </div>
+                    </div>
+                </router-link>
+            </div>
+        </div>
     </div>
 </template>
 
