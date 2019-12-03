@@ -4,14 +4,14 @@
             <div class="w-18 h-full">
                 <SideBar />
             </div>
-            <div class="flex-1 bg-gray-200 relative">
+            <GPanel :dark="true" class="flex-1 bg-gray-200 relative">
                 <div>
                     <MainBar/>
                 </div>
                 <div class="absolute inset-0" style="top:40px;">
                     <router-view/>
                 </div>
-            </div>
+            </GPanel>
         </div>
     </div>
 </template>

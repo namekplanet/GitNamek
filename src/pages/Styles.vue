@@ -1,6 +1,6 @@
 <template>
-    <div class="absolute inset-0">
-        <div class="relative h-full">
+    <GPanel :dark="true" class="absolute inset-0">
+        <div class="relative h-full overflow-y-scroll pb-6">
             <div class="p-2">
                 <div>
                     <span>Buttons</span>
@@ -38,8 +38,57 @@
                     </Dropdown>
                 </div>
             </div>
+
+            <div class="p-2 mt-5">
+                <div>
+                    <span>Panel</span>
+                </div>
+                <div>
+                    Panel Dark
+                    <GPanel :dark="true" class="p-3">
+                        <GFormInput title="Text" value="Form input with title" message="This is a message in bottom"/>
+                    </GPanel>
+                    <div class="mt-4">
+                        Panel Light
+                    </div>
+                    <GPanel class="p-3">
+                        <GFormInput title="Text" value="Form input with title" message="This is a message in bottom"/>
+                    </GPanel>
+                </div>
+            </div>
+
+            <div class="p-2 mt-5">
+                <div>
+                    <span>Cards</span>
+                </div>
+                <div>
+                    Card Default
+                    <GCard title="This is Card">
+                        <GFormInput title="Text" value="Form input with title" message="This is a message in bottom"/>
+                        <div slot="footer">
+                            This is a simple message
+                        </div>
+                    </GCard>
+                </div>
+            </div>
+
+            <div class="p-2 mt-5">
+                <div>
+                    <span>List</span>
+                </div>
+                <div>
+                    <GCard title="List">
+                        <GList title="List title">
+                            <GListOption>Option One</GListOption>
+                            <GListOption>Option Two</GListOption>
+                            <GListOption>Option Three</GListOption>
+                            <GListOption>Option Four</GListOption>
+                        </GList>
+                    </GCard>
+                </div>
+            </div>
         </div>
-    </div>
+    </GPanel>
 </template>
 
 <script lang="ts">

@@ -1,105 +1,49 @@
 <template>
-    <div class="h-full relative"
-         v-if="selectedProject.getRepo()">
-         <div class="rounded bg-white p-1 mx-1">
-            <div class="flex p-1 border-b border-gray-300">
-                <div class="flex-1 pt-1">
-                    <span class="font-bold">Unstaged Files</span>
-                </div>
-                <div class="flex-initial text-right">
-                    <Button color="secondary" @click="stageAll()" class="text-xs">Stage all</Button>
-                </div>
-            </div>
-            <div class="bg-gray-200 h-40 overflow-scroll">
-                <ul class="w-full cursor-pointer">
-                    <li v-for="(f,i) in selectedProject.getRepo().unstagedFiles"
-                        @mouseover="visibleLine='u'+i" @mouseleave="visibleLine=''"
-                        class="flex border-b border-gray-300 relative py-1"
-                        :class="{'bg-gray-100': visibleLine==='u'+i}">
-                        <div class="flex-1">
-                            <div class="ml-5">
-                                <span class="ml-3 text-sm"
-                                    @click="openFile(f)">
-                                    {{ f.path }}
-                                </span>
-                            </div>
-                        </div>
-                        <div class="absolute inset-y-0 py-1 px-1 rounded"
-                            :class="getFileIcon(f).bgColor">
-                            <span class="text-white p-1 text-xs">
-                                {{ getFileIcon(f).label }}
-                            </span>
-                        </div>
-                        <div class="absolute inset-y-0 right-0" v-show="visibleLine==='u'+i">
-                            <Button
-                                color="success"
-                                @click="stageFile(f)"
-                                class="text-xs">
-                                Stage
-                            </Button>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-         </div>
-         <div class="rounded bg-white p-1 m-1">
-            <div class="flex p-1 border-b border-gray-300">
-                <div class="flex-1 pt-1">
-                    <span class="font-bold">Staged Files</span>
-                </div>
-                <div class="flex-initial text-right">
-                    <Button color="secondary" @click="unstageAll()" class="text-xs">Unstage all</Button>
-                </div>
-            </div>
-            <div class="bg-gray-200 h-40 overflow-scroll">
-                <ul class="w-full cursor-pointer">
-                    <li v-for="(f,i) in selectedProject.getRepo().stagedFiles"
-                        @mouseover="visibleLine='s'+i" @mouseleave="visibleLine=''"
-                        class="flex border-b border-gray-300 relative py-1"
-                        :class="{'bg-gray-100': visibleLine==='s'+i}">
-                        <div class="flex-1">
-                            <div class="ml-5">
-                                <span class="ml-3 text-sm"
-                                    @click="openFile(f)">
-                                    {{ f.path }}
-                                </span>
-                            </div>
-                        </div>
-                        <div class="absolute inset-y-0 py-1 px-1 rounded"
-                            :class="getFileIcon(f).bgColor">
-                            <span class="text-white p-1 text-xs">
-                                {{ getFileIcon(f).label }}
-                            </span>
-                        </div>
-                        <div class="absolute inset-y-0 right-0" v-show="visibleLine==='s'+i">
-                            <Button
-                                color="warning"
-                                @click="unstageFile(f)"
-                                class="text-xs">
-                                Unstage
-                            </Button>
-                        </div>
-                    </li>
-                </ul>
-            </div>
+    <div v-if="selectedProject.getRepo()" class="flex flex-col h-full mx-1">
+        <div class="h-full mb-1">
+            <GCard title="Unstaged Files" class="h-full pb-6">
+                <GButton slot="action" size="xs" @click="stageAll()">Stage all</GButton>
+                <GList class="h-full mt-1 mb-5">
+                    <GListOption v-for="(f,i) in selectedProject.getRepo().unstagedFiles" :key="i">
+                        <span slot="left" class="px-1 mr-1" :class="getFileIcon(f).bgColor">{{ getFileIcon(f).label }}</span>
+                        <span @click="openFile(f)">{{ f.path }}</span>
+                        <GButton
+                            slot="right"
+                            color="success"
+                            size="xs"
+                            @click="stageFile(f)">
+                            Stage
+                        </GButton>
+                    </GListOption>
+                </GList>
+            </GCard>
         </div>
-        <div class="absolute bottom-0 inset-x-0 ">
-            <div class="rounded bg-white p-1 m-1">
-                <div class="flex p-1 border-b border-gray-200">
-                    <span class="font-bold">Commit Message</span>
-                </div>
-                <div>
-                    <div class="h-32">
-                        <textarea class="p-1 w-full h-full bg-white font-bold" placeholder="Message:"
-                            v-model="commitMessage"></textarea>
-                    </div>
-                    <div class="mt-1">
-                        <Button class="w-full py-3"
+        <div class="h-full mb-1">
+            <GCard title="Staged Files" class="h-full pb-6">
+                <GButton slot="action" size="xs" @click="unstageAll()">Unstage all</GButton>
+                <GList class="h-full mt-1 mb-5">
+                    <GListOption v-for="(f,i) in selectedProject.getRepo().stagedFiles" :key="i">
+                        <span slot="left" class="px-1 mr-1" :class="getFileIcon(f).bgColor">{{ getFileIcon(f).label }}</span>
+                        <span @click="openFile(f)">{{ f.path }}</span>
+                        <GButton
+                            slot="right"
+                            color="warning"
+                            size="xs"
+                            @click="unstageFile(f)">
+                            Unstage
+                        </GButton>
+                    </GListOption>
+                </GList>
+            </GCard>
+        </div>
+        <div class="h-60">
+            <GCard title="Commit message" class="h-60">
+                <GInput type="textarea" placeholder="Message:" v-model="commitMessage"
+                    class="h-32"/>
+                <GButton slot="footer" class="w-full mx-1"
                             :disabled="commitMessage===''"
-                            @click="commit()">Commit</Button>
-                    </div>
-                </div>
-            </div>
+                            @click="commit()">Commit</GButton>
+            </GCard>
         </div>
     </div>
 </template>
@@ -149,14 +93,14 @@ export default class RepositoryFilesStage extends Vue {
 
     public getFileIcon(file: any): any {
         let label: string = file.status;
-        let bgColor: string = 'bg-black';
+        let bgColor: string = 'text-black';
         if (file.status === '?' || file.status === 'A') {
             label = 'N';
-            bgColor = 'bg-green-800';
+            bgColor = 'text-green-800';
         } else if (file.status === 'M') {
-            bgColor = 'bg-orange-600';
+            bgColor = 'text-orange-600';
         } else if (file.status === 'D') {
-            bgColor = 'bg-red-700';
+            bgColor = 'text-red-700';
         }
         return { label, bgColor };
     }

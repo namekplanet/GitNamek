@@ -1,37 +1,26 @@
 <template>
-    <div class="absolute inset-0">
+    <div class="absolute inset-0" v-if="$store.state.openedProject">
         <div class="relative h-full">
             <div class="absolute inset-0">
                 <div class="flex h-full">
                     <div class="w-64 h-full">
-                        <div v-if="$store.state.openedProject" class="h-full">
+                        <div class="h-full">
                             <RepositorySideBar/>
                         </div>
                     </div>
-                    <div class="flex-1" v-show="!toggleFullSidebar">
-                        <div v-if="$store.state.openedFile" class="h-full">
+                    <GExpander direction="left">
+                        <i slot="icon-expand" class="fas fa-arrow-alt-circle-left"></i>
+                        <i slot="icon-close" class="fas fa-times-circle"></i>
+                        <div v-if="$store.state.openedFile" slot="left" class="h-full">
                             <FileEditor/>
                         </div>
-                        <div v-else class="h-full overflow-y-scroll px-1">
+                        <div v-else slot="left" class="h-full">
                             <RepositoryTreeCommit/>
                         </div>
-                    </div>
-                    <div style="min-width:400px;" :class="{'w-full': toggleFullSidebar}">
-                        <div class="flex h-full">
-                            <div class="bg-gray-300 h-full p-1 cursor-pointer rounded"
-                                @click="toggleFullSidebar=!toggleFullSidebar">
-                                    {{ toggleFullSidebar ? '>' : '<'}}
-                                </div>
-                            <div v-if="$store.state.openedProject" class="h-full w-full">
-                                <RepositoryFilesStage/>
-                            </div>
-                        </div>
-                    </div>
+                        <RepositoryFilesStage slot="right"/>
+                    </GExpander>
                 </div>
             </div>
-            <!-- <div class="h-14 p-3 border-b absolute bottom-0 inset-x-0 shadow">
-                Status Bar
-            </div> -->
         </div>
     </div>
 </template>

@@ -1,27 +1,17 @@
 <template>
-    <div v-if="selectedProject" class="float-right">
-        <ul>
-            <li class="float-left mr-1">
-                <Button color="info"
-                    @click="showProjectSettings()"
-                >Settings</Button>
-            </li>
-            <li class="float-left mr-1">
-                <Button color="info"
-                    @click="refresh()"
-                >Refresh</Button>
-            </li>
-            <li class="float-left mr-1">
-                <Button color="success"
-                    @click="pull()"
-                >Pull</Button>
-            </li>
-            <li class="float-left mr-1">
-                <Button color="primary"
-                    @click="push()"
-                >({{ selectedProject.getRepo().commitsAhead }}) Push</Button>
-            </li>
-        </ul>
+    <div v-if="selectedProject" class="flex float-right">
+        <GButton class="mr-1" color="info"
+            @click="showProjectSettings()"
+        >Settings</GButton>
+        <GButton class="mr-1" color="info"
+            @click="refresh()"
+        >Refresh</GButton>
+        <GButton class="mr-1" color="success"
+            @click="pull()"
+        >Pull</GButton>
+        <GButton class="mr-1" color="primary"
+            @click="push()"
+        >({{ selectedProject.getRepo().commitsAhead }}) Push</GButton>
     </div>
 </template>
 

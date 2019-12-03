@@ -1,9 +1,7 @@
 <template>
-    <button class=" shadow-md font-bold"
-        :class="classStyle"
-        @click="onClick()">
+    <span class="px-1 mr-1 rounded bg-gray-700 text-gray-400 font-thin text-xs" :class="colorClasses">
         <slot/>
-    </button>
+    </span>
 </template>
 
 <script lang="ts">
@@ -11,7 +9,7 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
 import Base from '../Base';
 
 @Component
-export default class Button extends Base {
+export default class Badge extends Base {
 
     @Prop({ default: 'md' }) public readonly size!: string;
     private xsStyle: string = 'px-1 py-0 rounded-sm';
@@ -34,10 +32,6 @@ export default class Button extends Base {
 
     public mounted(): void {
         //
-    }
-
-    public onClick(): void {
-        this.$emit('click');
     }
 
 }

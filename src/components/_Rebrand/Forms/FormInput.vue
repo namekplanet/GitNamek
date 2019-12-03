@@ -1,7 +1,7 @@
 <template>
     <div :class="{'my-2':!noMargin}">
         <div v-if="!titleAsPlaceholder&&title&&title!==''" class="px-1">
-            <span class="text-sm font-bolder">{{ title }}</span>
+            <span class="text-sm font-bolder" :class="{'text-gray-200':isDark}" >{{ title }}</span>
         </div>
         <div>
             <GInput :type="type" :value="value" @input="onInput" 
@@ -26,9 +26,9 @@ export default class FormInput extends Base {
     @Prop({ default: '' }) public readonly title!: string;
     @Prop({ default: '' }) public readonly message!: string;
     @Prop({ default: false }) public readonly titleAsPlaceholder!: string;
-    
+
     public mounted(): void {
-        //
+        this.loadParentTheme();
     }
 
     public onInput(evt: any): void {

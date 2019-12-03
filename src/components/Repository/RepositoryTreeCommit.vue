@@ -1,23 +1,16 @@
 <template>
-    <div v-if="selectedProject">
-        <div class="">
-            <div v-for="(l,i) in selectedProject.getRepo().logs" :key="i"
-                class="flex flex-wrap" >
-                <div class="w-32">
-                    <div v-if="isRemoteHEAD(l)" class="bg-green-600 rounded shadow p-1">
-                        <span class="text-gray-100 font-bold">{{ 'REMOTE' }}</span>
-                    </div>
-                    <div v-if="isLocalHEAD(l)&&!isRemoteHEAD(l)" class="bg-orange-600 rounded shadow p-1">
-                        <span class="text-gray-100 font-bold">{{ 'LOCAL' }}</span>
-                    </div>
-                </div>
-                <div class="flex-1 ml-2">
-                    <div class="p-1 cursor-pointer rounded hover:bg-white hover:shadow">
-                        <span class="text-gray-900">{{ l.message }}</span>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <div v-if="selectedProject" class="relative h-full mb-5 mx-1">
+        <GCard title="Last Commits" class="absolute inset-0 mb-5">
+            <GList class="h-screen max-h-full">
+                <GListOption v-for="(l,i) in selectedProject.getRepo().logs" :key="i">
+                    <!-- <span slot="left" class="px-1 mr-2">X</span> -->
+                    <span>{{ l.message }}
+                        <GBadge class="ml-1" v-if="isRemoteHEAD(l)" color="success">Remote</GBadge>
+                        <GBadge class="ml-1" v-if="isLocalHEAD(l)" color="primary">Local</GBadge>
+                    </span>
+                </GListOption>
+            </GList>
+        </GCard>
     </div>
 </template>
 

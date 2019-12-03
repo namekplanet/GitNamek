@@ -1,3 +1,4 @@
+// @ts-ignore
 const Git: any = require('simple-git/promise');
 
 export default class Repository {
@@ -152,7 +153,8 @@ export default class Repository {
 
     public push(): void {
         this._raw(['config', 'credential.helper']).then((data: any) => {
-            console.log('data:', data);
+            // console.log('data:', data);
+            //
         });
         return;
         // if (this.branchRemoteTracking) {

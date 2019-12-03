@@ -31,6 +31,7 @@
 
 <script lang="ts">
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
+// @ts-ignore
 const readline = require('readline');
 import * as fs from 'fs';
 

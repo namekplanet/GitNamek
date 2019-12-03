@@ -40,6 +40,7 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
 import { Project } from '@/models';
 import { remote } from 'electron';
 import * as fs from 'fs';
+// @ts-ignore
 const Git: any = require('simple-git/promise');
 
 @Component

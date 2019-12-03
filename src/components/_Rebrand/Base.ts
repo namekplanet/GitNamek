@@ -1,10 +1,15 @@
 import { Vue, Prop } from 'vue-property-decorator';
 
 export default class Base extends Vue {
-    
+
     @Prop({ default: 'primary' }) protected readonly color!: string;
     @Prop({ default: false }) protected readonly noMargin!: boolean;
     @Prop({ default: false }) protected readonly hasError!: boolean;
+    protected themeDark: boolean = false;
+
+    get isDark(): boolean {
+        return this.themeDark;
+    }
 
     protected get colorClasses(): string {
         if (this.color === 'success') {
@@ -17,6 +22,19 @@ export default class Base extends Vue {
             return this.getSecondary();
         }
         return this.getPrimary();
+    }
+
+    protected loadParentTheme(): void {
+        let level = 0;
+        let parent = this.$parent;
+        while (parent != null && !parent.$refs.hasOwnProperty('ref-panel') && level < 10) {
+            level++;
+            parent = parent.$parent;
+        }
+        if (parent) {
+            // @ts-ignore
+            this.themeDark = parent.dark;
+        }
     }
 
     private getPrimary(): string {
