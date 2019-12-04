@@ -88,22 +88,20 @@ export default class RepositoryTreeCommit extends Vue {
     &:before {
         content:"";
         position: absolute;
-        left: 0.3em;
-        background-color: #4299E1;
+        left: 4px;
+        background-color: #ED8936;
         height: 150%;
-        width: 0.2em;
+        width: 2px;
     }
 
     &:after {
         content:"";
         position: absolute;
-        left: 0;
-        border: 0.2em solid;
-        border-color: #ED8936;
+        top: 5px;
+        left: 2px;
+        background-color: #ED8936;
         border-radius: 50%;
-        padding: 0.3em;
-        width: 0.5em;
-        height: 0.5em;
+        padding: 3px;
     }
 }
 </style>
