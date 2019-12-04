@@ -2,8 +2,8 @@
     <div v-if="selectedProject" class="relative h-full mb-5 mx-1">
         <GCard title="Last Commits" class="absolute inset-0 mb-5">
             <GList class="h-screen max-h-full">
-                <GListOption v-for="(l,i) in selectedProject.getRepo().logs" :key="i">
-                    <!-- <span slot="left" class="px-1 mr-2">X</span> -->
+                <GListOption v-for="(l,i) in processedLogs.reverse()" :key="i">
+                    <div slot="left" class="treelinefork px-1 mr-2" :class="{'ml-5': l.isFork && l.forkLevel > 1}"></div>
                     <span>{{ l.message }}
                         <GBadge class="ml-1" v-if="isRemoteHEAD(l)" color="success">Remote</GBadge>
                         <GBadge class="ml-1" v-if="isLocalHEAD(l)" color="primary">Local</GBadge>
@@ -21,8 +21,47 @@ import { Project } from '@/models';
 @Component
 export default class RepositoryTreeCommit extends Vue {
 
+    private levelColors: string[] = ['border-orange-500', 'border-blue-500', 'border-green-500', 'border-red-500'];
+
     get selectedProject(): Project {
         return this.$store.state.openedProject;
+    }
+
+    get processedLogs(): any {
+        const forks: any[] = [];
+        const forksLevels: any[] = [];
+        const logs: any[] = [];
+        const clone: any[] = this.selectedProject.getRepo().logs.map((a: any) => Object.assign({}, a));
+        while (clone.length > 0) {
+            const elem: any = clone.pop();
+            elem.isFork = false;
+
+            // Find new forks
+            if (elem.parents.length === 1 && forks[elem.parent] === undefined) {
+                forks[elem.parent] = {
+                    childs: [],
+                };
+            }
+            // add new childs
+            if (elem.parents.length === 1 && forks[elem.parent] !== undefined) {
+                if (forks[elem.parent].childs[elem.hash] === undefined) {
+                    forks[elem.parent].childs.push(elem.hash);
+                    forksLevels[elem.hash] = forks[elem.parent].childs.length;
+                    elem.isFork = true;
+                }
+                // Add fork Levels
+                if (forksLevels[elem.parent] > forksLevels[elem.hash]) {
+                    forksLevels[elem.hash] = forksLevels[elem.parent];
+                }
+            }
+
+            // find merges
+            elem.isMerge = elem.parents.length > 1;
+            // set fork level
+            elem.forkLevel = forksLevels[elem.hash] !== undefined && forksLevels[elem.hash] > 1 ? forksLevels[elem.hash] : 1;
+            logs.push(elem);
+        }
+        return logs;
     }
 
     public mounted(): void {
@@ -41,4 +80,30 @@ export default class RepositoryTreeCommit extends Vue {
 </script>
 
 <style scoped lang="scss">
+.dot {
+    display: inline-block;
+}
+.treelinefork {
+    position: relative;
+    &:before {
+        content:"";
+        position: absolute;
+        left: 0.3em;
+        background-color: #4299E1;
+        height: 150%;
+        width: 0.2em;
+    }
+
+    &:after {
+        content:"";
+        position: absolute;
+        left: 0;
+        border: 0.2em solid;
+        border-color: #ED8936;
+        border-radius: 50%;
+        padding: 0.3em;
+        width: 0.5em;
+        height: 0.5em;
+    }
+}
 </style>

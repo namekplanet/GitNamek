@@ -15,6 +15,7 @@ export default class Repository {
     public unstagedFiles: any[] = [];
     public commitsAhead: number = 0;
     public logs: any[] = [];
+    public logsGraph: any[] = [];
     private isOpened: boolean = false;
     private repo: any;
 
@@ -175,9 +176,22 @@ export default class Repository {
     }
 
     public loadLogs(): void {
-        Git(this.repoPath).log().then((data: any) => {
+        const options = {
+            format: {
+                hash: '%h',
+                date: '%ai',
+                message: '%s',
+                refs: '%D',
+                body: '%B',
+                author_name: '%aN',
+                author_email: '%ae',
+                parent: '%p',
+            },
+        };
+        Git(this.repoPath).log(options).then((data: any) => {
             this.logs.splice(0, this.logs.length);
             data.all.forEach((l: any) => {
+                l.parents = l.parent.split(' ');
                 this.logs.push(l);
             });
         });
