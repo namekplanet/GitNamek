@@ -6,7 +6,7 @@
             class="w-full h-full p-1 bg-gray-700 shadow-md border border-gray-700 text-gray-500"></textarea>
         <input 
             v-else
-            :type="type" :value="value" @input="onInput" 
+            :type="type" :value="value" @input="onInput"  @change="onChange"
             :placeholder="placeholder"
             class="w-full p-1 bg-gray-700 shadow-md border border-gray-700 text-gray-500"
             :class="{'border-b border-b-red-700':hasError}" />
@@ -30,6 +30,10 @@ export default class Input extends Base {
 
     public onInput(evt: any): void {
         this.$emit('input', evt.target.value);
+    }
+
+    public onChange(evt: any): void {
+        this.$emit('change', evt.target.value);
     }
 
 }

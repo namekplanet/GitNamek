@@ -4,7 +4,7 @@
             <span class="text-sm font-bolder" :class="{'text-gray-200':isDark}" >{{ title }}</span>
         </div>
         <div>
-            <GInput :type="type" :value="value" @input="onInput" 
+            <GInput :type="type" :value="value" @input="onInput" @change="onChange"
                 :placeholder="titleAsPlaceholder?title:''"
                 :has-error="hasError" />
         </div>
@@ -31,8 +31,12 @@ export default class FormInput extends Base {
         this.loadParentTheme();
     }
 
-    public onInput(evt: any): void {
-        this.$emit('input', evt.target.value);
+    public onInput(value: any): void {
+        this.$emit('input', value);
+    }
+
+    public onChange(value: any): void {
+        this.$emit('change', value);
     }
 
 }

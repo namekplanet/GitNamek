@@ -2,33 +2,19 @@
     <div>
         <span class="text-gray-800 font-bold">Clone a Repository</span>
         <div>
-            <div class="my-1">
-                <label>URL</label>
-                <input type="text"
-                    class="w-full p-1 bg-white font-bold border border-gray-300 rounded"
-                    @change="onURLChange"
-                    v-model="cloneURL">
+            <GFormInput title="URL" @change="onURLChange" v-model="cloneURL"></GFormInput>
+            <div class="relative">
+                <GFormInput title="Destination Path" v-model="cloneDestination"></GFormInput>
+                <GButton class="absolute top-0 mt-5 pb-2 px-3 right-0" @click="openDestinationPath">...</GButton>
             </div>
-            <div class="my-1">
-                <label>Destination Path</label>
-                <div class="relative">
-                    <input type="text"
-                        class="w-full p-1 bg-white font-bold border border-gray-300 rounded"
-                        v-model="cloneDestination">
-                    <Button class="absolute right-0" @click="openDestinationPath">...</Button>
-                </div>
-            </div>
-            <div class="my-1">
-                <label>Name</label>
-                <input type="text"
-                    class="w-full p-1 bg-white font-bold border border-gray-300 rounded"
-                    v-model="cloneName">
-            </div>
+
+            <GFormInput title="Name" v-model="cloneName"></GFormInput>
+            
             <div class="my-3">
-                <Button @click="onClone" class="float-left">
+                <GButton @click="onClone" class="float-left">
                     <i class="fas fa-download"></i>
                     <span class="ml-2">Clone</span>
-                </Button>
+                </GButton>
                 <Loader v-if="showLoader" class="ml-3" />
             </div>
         </div>
@@ -60,6 +46,7 @@ export default class RepositoryTopBar extends Vue {
         const request: any = async (remoteUri: string, localPath: string) => {
             return await Git().clone(remoteUri, localPath);
         };
+        
         request(this.cloneURL, this.cloneDestination).then((data: any) => {
             this.$store.commit('addProject', new Project(this.cloneName, this.cloneDestination));
             this.cloneURL = '';
@@ -73,6 +60,8 @@ export default class RepositoryTopBar extends Vue {
     public onURLChange(): void {
         const data: string[] = this.cloneURL.split('/');
         this.cloneName = data[data.length - 1];
+        this.cloneName = this.cloneName.charAt(0).toUpperCase() 
+            + this.cloneName.slice(1).replace('.git', '');
     }
 
     public openDestinationPath(): void {
@@ -80,7 +69,7 @@ export default class RepositoryTopBar extends Vue {
             if (!result.canceled && result.filePaths[0]) {
                 const path: string = result.filePaths[0];
                 if (this.cloneName !== '') {
-                    this.cloneDestination = path/* + '/' + this.cloneName*/;
+                    this.cloneDestination = path + '/' + this.cloneName;
                 } else {
                     this.cloneDestination = path;
                 }

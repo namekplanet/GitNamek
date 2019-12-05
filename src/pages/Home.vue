@@ -2,33 +2,23 @@
     <div class="absolute inset-0">
         <div class="relative h-full p-3">
             <div class="h-12">
-                <Button @click="openLocalRepository()" >Open Local Repository
-                </Button>
+                <GButton @click="openLocalRepository()" >
+                    Open Local Repository
+                </GButton>
             </div>
 
             <div class="flex">
-                <div class="w-1/3">
-                    <span class="text-gray-800 font-bold">List of projects</span>
-                    <div>
-                        <ul>
-                            <li v-for="(p,i) in projectsList" :key="i"
-                                class="mb-1">
-                                <div class="bg-gray-300 rounded cursor-pointer p-2">
-                                    <div class="flex">
-                                        <div class="flex-1 cursor-pointer"
-                                            @click="onpenGitRepository(p)">
-                                            <span class="font-bold text-gray-800">{{ p.name }}</span>
-                                        </div>
-                                        <div>
-                                            <button @click="removeLocalRepository(p)">Remove</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
+                <div class="w-64">
+                    <GCard title="List of projects">
+                        <GList>
+                            <GListOption v-for="(p,i) in projectsList" :key="i">
+                                <div @click="onpenGitRepository(p)">{{ p.name }}</div>
+                                <button slot="right" @click="removeLocalRepository(p)">Remove</button>
+                            </GListOption>
+                        </GList>
+                    </GCard>
                 </div>
-                <div class="w-1/2 px-2">
+                <div class="flex-1 min-w-xs max-w-lg px-2">
                     <RepositoryClone />
                 </div>
             </div>
