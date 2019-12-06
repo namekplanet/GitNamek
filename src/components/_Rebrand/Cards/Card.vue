@@ -1,9 +1,9 @@
 <template>
-    <div class="rounded-sm bg-gray-200 border border-gray-200 overflow-hidden" :class="{'bg-gray-900 border-gray-800':isDark}">
-        <div class="px-2 pt-2 border-b border-gray-400" :class="{'bg-gray-800 border-gray-800':isDark}">
+    <div class="bg-gray-100 overflow-hidden">
+        <div class="border-b border-gray-400">
             <div class="flex">
                 <div class="flex-1">
-                    <span class="font-bold text-sm" :class="{'text-gray-500':isDark}">{{ title }}</span>
+                    <span class="font-bold text-sm">{{ title }}</span>
                 </div>
                 <div>
                     <slot name="action"></slot>
@@ -15,7 +15,7 @@
             <slot></slot>
         </div>
         <div v-if="!!$slots['footer']" 
-            class="pb-2 pt-1 border-t border-gray-400" :class="{'bg-gray-800 border-gray-800 text-gray-200':isDark}">
+            class="border-t border-gray-400">
             <slot name="footer"></slot>
         </div>
     </div>

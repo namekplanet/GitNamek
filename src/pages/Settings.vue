@@ -1,19 +1,13 @@
 <template>
-    <div class="absolute inset-0">
-        <div class="relative h-full">
-            <div class="absolute inset-0">
-                <div class="flex h-full">
-                    <div class="w-64 h-full">
-                        <div class="h-full p-3">
-                            <SettingsSideBar />
-                        </div>
-                    </div>
-                    <div class="flex-1 h-full">
-                        <div class="h-full p-3">
-                            <FileEditor path="/Users/pedroladeira/.gitconfig" :closable="false" :editable="true" />
-                        </div>
-                    </div>
-                </div>
+    <div class="flex h-full">
+        <div class="w-64 h-full">
+            <div class="h-full p-3">
+                <SettingsSideBar />
+            </div>
+        </div>
+        <div class="flex-1 h-full">
+            <div class="h-full p-3">
+                <FileEditor path="/Users/pedroladeira/.gitconfig" :closable="false" :editable="true" />
             </div>
         </div>
     </div>

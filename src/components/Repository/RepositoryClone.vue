@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="p-2">
         <span class="text-gray-800 font-bold">Clone a Repository</span>
         <div>
             <GFormInput title="URL" @change="onURLChange" v-model="cloneURL"></GFormInput>
@@ -48,7 +48,7 @@ export default class RepositoryTopBar extends Vue {
         };
         
         request(this.cloneURL, this.cloneDestination).then((data: any) => {
-            this.$store.commit('addProject', new Project(this.cloneName, this.cloneDestination));
+            this.$store.commit('addProject', new Project(this.cloneName, this.cloneDestination, this.cloneURL));
             this.cloneURL = '';
             this.cloneDestination = '';
             this.cloneName = '';

@@ -12,7 +12,8 @@ export default new Vuex.Store({
         openedProject: null,
         menuIndex: 0 as number,
         openedFile: null,
-        mainBarComponent: null,
+        mainBarComponentLeft: null,
+        mainBarComponentRight: null,
     },
     mutations: {
         loadProjects(state: any): void {
@@ -21,7 +22,7 @@ export default new Vuex.Store({
                 const projects: any = JSON.parse(data);
                 state.projects.splice(0, state.projects.length);
                 projects.forEach((p: any) => {
-                    state.projects.push(new Project(p.name, p.path));
+                    state.projects.push(new Project(p.name, p.path, p.uri));
                 });
             }
         },

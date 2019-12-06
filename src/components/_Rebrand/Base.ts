@@ -2,7 +2,7 @@ import { Vue, Prop } from 'vue-property-decorator';
 
 export default class Base extends Vue {
 
-    @Prop({ default: 'primary' }) protected readonly color!: string;
+    @Prop({ default: '' }) protected readonly color!: string;
     @Prop({ default: false }) protected readonly noMargin!: boolean;
     @Prop({ default: false }) protected readonly hasError!: boolean;
     protected themeDark: boolean = false;
@@ -12,16 +12,18 @@ export default class Base extends Vue {
     }
 
     protected get colorClasses(): string {
-        if (this.color === 'success') {
+        if (this.color === 'primary') {
+            return this.getPrimary();
+        } else if (this.color === 'secondary') {
+            return this.getSecondary();
+        } else if (this.color === 'success') {
             return this.getSuccess();
         } else if (this.color === 'info') {
             return this.getInfo();
         } else if (this.color === 'warning') {
             return this.getWarning();
-        } else if (this.color === 'secondary') {
-            return this.getSecondary();
         }
-        return this.getPrimary();
+        return this.getDefault();
     }
 
     protected loadParentTheme(): void {
@@ -35,6 +37,10 @@ export default class Base extends Vue {
             // @ts-ignore
             this.themeDark = parent.dark;
         }
+    }
+
+    private getDefault(): string {
+        return 'border border-gray-200';
     }
 
     private getPrimary(): string {

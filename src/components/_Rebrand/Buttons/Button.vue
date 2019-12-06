@@ -1,5 +1,5 @@
 <template>
-    <button class=" shadow-md font-bold"
+    <button class="shadow-md font-bold cursor-pointer"
         :class="classStyle"
         @click="onClick()">
         <slot/>

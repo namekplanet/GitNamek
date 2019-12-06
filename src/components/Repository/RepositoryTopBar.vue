@@ -2,16 +2,25 @@
     <div v-if="selectedProject" class="flex float-right">
         <GButton class="mr-1" color="info"
             @click="showProjectSettings()"
-        >Settings</GButton>
+            >
+            <i class="fas fa-cog"></i>
+        </GButton>
         <GButton class="mr-1" color="info"
             @click="refresh()"
-        >Refresh</GButton>
+            >
+            <i class="fas fa-sync"></i>
+        </GButton>
         <GButton class="mr-1" color="success"
             @click="pull()"
-        >Pull</GButton>
+            >
+            <i class="fas fa-chevron-down"></i>
+        </GButton>
         <GButton class="mr-1" color="primary"
             @click="push()"
-        >({{ selectedProject.getRepo().commitsAhead }}) Push</GButton>
+            >
+            <i class="fas fa-chevron-up"></i>
+            {{ selectedProject.getRepo().commitsAhead > 0 ? selectedProject.getRepo().commitsAhead : '' }}
+        </GButton>
     </div>
 </template>
 

@@ -4,11 +4,13 @@ export default class Project {
 
     public name: string;
     public path: string;
+    public uri: string;
     public repo: Repository;
 
-    constructor(name: string, path: string) {
+    constructor(name: string, path: string, uri: string) {
         this.name = name;
         this.path = path;
+        this.uri = uri;
         this.repo = new Repository(path);
     }
 

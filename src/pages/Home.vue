@@ -1,29 +1,18 @@
 <template>
-    <div class="absolute inset-0">
-        <div class="relative h-full p-3">
-            <div class="h-12">
-                <GButton @click="openLocalRepository()" >
-                    Open Local Repository
+    <GLayoutAsideExpander :left="showLeftAside">
+        <div slot="left">
+            <GList title="List of projects">
+                <GButton slot="right" size="xs" @click="openLocalRepository()" color="primary" class="px-1">
+                    <i class="fas fa-plus"></i>
                 </GButton>
-            </div>
-
-            <div class="flex">
-                <div class="w-64">
-                    <GCard title="List of projects">
-                        <GList>
-                            <GListOption v-for="(p,i) in projectsList" :key="i">
-                                <div @click="onpenGitRepository(p)">{{ p.name }}</div>
-                                <button slot="right" @click="removeLocalRepository(p)">Remove</button>
-                            </GListOption>
-                        </GList>
-                    </GCard>
-                </div>
-                <div class="flex-1 min-w-xs max-w-lg px-2">
-                    <RepositoryClone />
-                </div>
-            </div>
+                <GListOption v-for="(p,i) in projectsList" :key="i">
+                    <div @click="onpenGitRepository(p)">{{ p.name }}</div>
+                    <button slot="right" @click="removeLocalRepository(p)">Remove</button>
+                </GListOption>
+            </GList>
         </div>
-    </div>
+        <RepositoryClone/>
+    </GLayoutAsideExpander>
 </template>
 
 <script lang="ts">
@@ -35,12 +24,17 @@ import * as fs from 'fs';
 @Component
 export default class Home extends Vue {
 
+    private showLeftAside: boolean = false;
+
     get projectsList(): Project[] {
         return this.$store.state.projects;
     }
 
     public mounted(): void {
         this.$store.commit('loadProjects');
+        setTimeout(() => {
+            this.showLeftAside = true;
+        }, 0);
     }
 
     /**
@@ -54,7 +48,7 @@ export default class Home extends Vue {
                     if (isValid) {
                         // add to list of repos
                         const pathSplit: string[] = path.split('/');
-                        this.$store.commit('addProject', new Project(pathSplit[pathSplit.length - 1], path));
+                        this.$store.commit('addProject', new Project(pathSplit[pathSplit.length - 1], path, ''));
                     }
                 });
             }

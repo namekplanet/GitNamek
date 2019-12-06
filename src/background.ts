@@ -19,9 +19,10 @@ function createWindow () {
   win = new BrowserWindow({
     width: 1200,
     height: 800,
+    titleBarStyle: 'hidden',
     webPreferences: {
       nodeIntegration: true
-    }
+    },
   })
 
   if (process.env.WEBPACK_DEV_SERVER_URL) {

@@ -4,6 +4,7 @@ import store from './store';
 import router from './router';
 import '@fortawesome/fontawesome-free/css/all.css';
 import '@/assets/css/tailwind.css';
+import '@/assets/css/styles.css';
 import '@/components';
 
 Vue.config.productionTip = false;

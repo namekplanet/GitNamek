@@ -1,28 +1,10 @@
 <template>
-    <div class="absolute inset-0" v-if="$store.state.openedProject">
-        <div class="relative h-full">
-            <div class="absolute inset-0">
-                <div class="flex h-full">
-                    <div class="w-64 h-full">
-                        <div class="h-full">
-                            <RepositorySideBar/>
-                        </div>
-                    </div>
-                    <GExpander direction="left">
-                        <i slot="icon-expand" class="fas fa-arrow-alt-circle-left"></i>
-                        <i slot="icon-close" class="fas fa-times-circle"></i>
-                        <div v-if="$store.state.openedFile" slot="left" class="h-full">
-                            <FileEditor/>
-                        </div>
-                        <div v-else slot="left" class="h-full">
-                            <RepositoryTreeCommit/>
-                        </div>
-                        <RepositoryFilesStage slot="right"/>
-                    </GExpander>
-                </div>
-            </div>
-        </div>
-    </div>
+    <GLayoutAsideExpander :left="showLeftAside" :right="trushowRightAside" v-if="$store.state.openedProject">
+        <RepositorySideBar slot="left"/>
+        <FileEditor v-if="$store.state.openedFile" />
+        <RepositoryTreeCommit v-else/>
+        <RepositoryFilesStage slot="right"/>
+    </GLayoutAsideExpander>
 </template>
 
 <script lang="ts">
@@ -34,17 +16,23 @@ import RepositoryFloatSideBar from '@/components/Repository/RepositoryFloatSideB
 export default class Project extends Vue {
 
     public toggleFullSidebar: boolean = false;
+    private showLeftAside: boolean = false;
+    private trushowRightAside: boolean = false;
 
     public mounted(): void {
         if (!this.$store.state.openedProject) {
             this.$router.push('/');
             return;
         }
-        this.$store.state.mainBarComponent = RepositoryTopBar;
+        this.$store.state.mainBarComponentRight = RepositoryTopBar;
+        setTimeout(() => {
+            this.showLeftAside = true;
+            this.trushowRightAside = true;
+        }, 0);
     }
 
     public destroyed(): void {
-        this.$store.state.mainBarComponent = null;
+        this.$store.state.mainBarComponentRight = null;
     }
 }
 </script>

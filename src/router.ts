@@ -10,10 +10,10 @@ Vue.use(VueRouter);
 
 export default new VueRouter({
     routes: [
-        { path: '/', component: Home },
-        { path: '/project', component: Project },
-        { path: '/project/settings', component: ProjectSettings },
-        { path: '/settings', component: Settings },
-        { path: '/styles', component: Styles },
+        { name: 'home', path: '/', component: Home },
+        { name: 'project', path: '/project', component: Project },
+        { name: 'project-settings', path: '/project/settings', component: ProjectSettings },
+        { name: 'settings', path: '/settings', component: Settings },
+        { name: 'styles', path: '/styles', component: Styles },
     ],
 });

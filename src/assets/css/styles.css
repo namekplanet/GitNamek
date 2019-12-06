@@ -1,0 +1,22 @@
+/* Default variables */
+:root {
+    --blue-color: blue;
+    --green-color: green;
+}
+
+[data-theme^="light"],
+[data-theme] [data-theme^="light"] {
+    --main-color: rgb(41,41,41);
+    --background-color: #fff;
+    --box-color: lightgrey;
+}
+
+[data-theme^="dark"],
+[data-theme] [data-theme^="dark"],
+[data-theme="light-dark-sidebar"] nav {
+    --blue-color: #1da1f2;
+    --main-color: #fff;
+    --background-color: rgb(41,41,41);
+    --sidebar-color: #333;
+    --box-color: grey;
+}
