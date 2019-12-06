@@ -30,7 +30,7 @@ export default class Project {
         });
     }
 
-    public getRepo(): any {
+    public getRepo(): Repository {
         return this.repo;
     }
 

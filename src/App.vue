@@ -22,7 +22,7 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import { app } from 'electron';
+import { Project } from '@/models';
 
 @Component
 export default class App extends Vue {
@@ -31,8 +31,17 @@ export default class App extends Vue {
     public isOpenedRight: boolean = false;
     public isDark: boolean = false;
 
+    get selectedProject(): Project {
+        return this.$store.state.openedProject;
+    }
+
     public mounted(): void {
         //
+        window.addEventListener("focus", () => {
+            if (this.selectedProject && this.selectedProject.getRepo()) {
+                this.selectedProject.getRepo().refresh();
+            }
+        });
     }
 
     public open() {

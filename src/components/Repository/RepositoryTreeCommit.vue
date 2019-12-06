@@ -3,7 +3,10 @@
         <GCard title="Last Commits" class="absolute inset-0 mb-5">
             <GList class="h-screen max-h-full">
                 <GListOption v-for="(l,i) in processedLogs.reverse()" :key="i">
-                    <div slot="left" class="treelinefork px-1 mr-2" :class="{'ml-5': l.isFork && l.forkLevel > 1}"></div>
+                    <div slot="left" class="treelinefork px-1 mr-2" :style="'margin-left: '+(l.forkLevel-1)*20+'px;'">
+                        <div class="treelinefork-dot" :class="levelColors[l.forkLevel-1]"></div>
+                        <div class="treelinefork-line" :class="levelColors[l.forkLevel-1]"></div>
+                    </div>
                     <span>{{ l.message }}
                         <GBadge class="ml-1" v-if="isRemoteHEAD(l)" color="success">Remote</GBadge>
                         <GBadge class="ml-1" v-if="isLocalHEAD(l)" color="primary">Local</GBadge>
@@ -21,13 +24,15 @@ import { Project } from '@/models';
 @Component
 export default class RepositoryTreeCommit extends Vue {
 
-    private levelColors: string[] = ['border-orange-500', 'border-blue-500', 'border-green-500', 'border-red-500'];
+    private levelColors: string[] = ['bg-orange-500', 'bg-blue-500', 'bg-green-500', 'bg-red-500'];
 
     get selectedProject(): Project {
         return this.$store.state.openedProject;
     }
 
     get processedLogs(): any {
+        console.log('Logs', this.selectedProject.getRepo().logs);
+        
         const forks: any[] = [];
         const forksLevels: any[] = [];
         const logs: any[] = [];
@@ -80,26 +85,19 @@ export default class RepositoryTreeCommit extends Vue {
 </script>
 
 <style scoped lang="scss">
-.dot {
-    display: inline-block;
-}
 .treelinefork {
     position: relative;
-    &:before {
-        content:"";
+    &-line {
         position: absolute;
         left: 4px;
-        background-color: #ED8936;
         height: 150%;
         width: 2px;
     }
 
-    &:after {
-        content:"";
+    &-dot {
         position: absolute;
         top: 5px;
         left: 2px;
-        background-color: #ED8936;
         border-radius: 50%;
         padding: 3px;
     }
